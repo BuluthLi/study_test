@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>常见小技巧</title>
+</head>
+
+<body>
+    <script>
+        console.log('set+...(扩展运算符)方法过滤重复值');
+        let arr = [1, 2, 2, 3, 6, 7, 7, 8, 2];
+        let uniqueArr = [...new Set(arr)];
+        uniqueArr.sort(function () {
+            return -1;
+        })
+        console.log(arr, uniqueArr);
+        console.log('--------------------------------------------------------');
+        console.log('通过加法运算符+将一个string类型的变量转回为number 类型,当这种情况发生时(您希望返回一个整数，而不是浮点数)，您可以使用两个波浪号:~~');
+        let int = "15";
+        let int2 = '15.667'
+        let int3 = '15.667'
+        int = +int;
+        int2 = +int2;
+        int3 = ~~int3;
+        console.log(int, int2, int3); // Result: 15
+        console.log(typeof int, typeof int2, typeof int3);
+    </script>
+</body>
+
+</html>
