@@ -2,7 +2,101 @@
 <!--css sprite 雪碧图 -->
 <!--字体图标 -->
 <!--CDN -->
-<!--dom懒加载 -->
+<!--dom懒加载(兼容性不是很好，甚至说差，一般不考虑，使用的话涉及IntersectionObserver交叉观察器的使用)-->
 <!-- 图片懒加载 -->
 <!--js,css,img图片的嵌合(现行vue，react框架使用webpack自行实现了js,css的嵌合) -->
 <!--js的script标签动态生成、加载 -->
+
+<!-- 图片懒加载 -->
+<!-- getBoundingClientRect用于获得页面中某个元素的左，上，右和下分别相对浏览器视窗的位置 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片懒加载</title>
+    <style>
+        .hai {
+            width: 200px;
+            height: 200px;
+            background: url('./images/example01.png') no-repeat;
+        }
+
+        img {
+            display: block;
+            /* width: 500px;
+            height: 500px; */
+            /* width: 100%;
+            height: 200%; */
+            width: 500px;
+            height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="./images/load.png" data-url="./images/example01.png" alt="">
+    <img src="./images/load.png" data-url="./images/example02.png" alt="">
+    <img src="./images/load.png" data-url="./images/example03.jpg" alt="">
+    <img src="./images/load.png" data-url="./images/example04.gif" alt="">
+    <div>haihaihaiai</div>
+    <div>haihaihaiai</div>
+    <div>haihaihaiai</div>
+    <div>haihaihaiai</div>
+    <!-- <div class="hai"></div> -->
+    <script>
+        var aImages = document.getElementsByTagName('img');
+        var divs = document.getElementsByTagName('div');
+        console.log(aImages);
+        console.log(aImages[0]);
+        // getBoundingClientRect用于获得页面中某个元素的左，上，右和下分别相对浏览器视窗的位置\
+        // 空边框盒（译者注：没有内容的边框）会被忽略。如果所有的元素边框都是空边框，
+        // 那么这个矩形给该元素返回的 width、height 值为0，left、top值为第一个css盒子（按内容顺序）的top - left值。(如同上面的不给img加宽高的时候的样子)
+        console.log(aImages[0].offsetTop, document.documentElement.clientHeight);
+        console.log(aImages[0].getBoundingClientRect().top, document.documentElement.clientHeight);
+        console.log(aImages[1].getBoundingClientRect().top, document.documentElement.clientHeight);
+        console.log(aImages[2].getBoundingClientRect().top, document.documentElement.clientHeight);
+        console.log(aImages[3].getBoundingClientRect().top, document.documentElement.clientHeight);
+        // ---------------------------------------------------------------------------------------
+        console.log(divs[0].getBoundingClientRect().top, document.documentElement.clientHeight);
+        console.log(divs[1].getBoundingClientRect().top, document.documentElement.clientHeight);
+        console.log(divs[2].getBoundingClientRect().top, document.documentElement.clientHeight);
+        console.log(divs[3].getBoundingClientRect().top, document.documentElement.clientHeight);
+        loadImg(aImages);
+        console.log(window);
+        window.onscroll = function () {
+            loadImg(aImages);
+        };
+        function loadImg(arr) {
+
+            for (var i = 0, len = arr.length; i < len; i++) {
+                if (arr[i].getBoundingClientRect().top < document.documentElement.clientHeight && !arr[i].isLoad) {
+                    arr[i].isLoad = true;
+                    arr[i].style.cssText = "transition: ''; opacity: 0;"
+                    if (arr[i].dataset) {
+                        aftLoadImg(arr[i], arr[i].dataset.url);
+                    } else {
+                        aftLoadImg(arr[i], arr[i].getAttribute("data-url"));
+                    }
+                    (function (i) {
+                        // 渐渐显示特效
+                        setTimeout(function () {
+                            arr[i].style.cssText = "transition: 1s; opacity: 1;"
+                        }, 16)
+                    })(i);
+                }
+            }
+        }
+        function aftLoadImg(obj, url) {
+            var oImg = new Image();
+            oImg.onload = function () {
+                obj.src = oImg.src;
+            }
+            oImg.src = url;
+        }
+    </script>
+</body>
+
+</html>

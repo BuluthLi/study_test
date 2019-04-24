@@ -1,0 +1,389 @@
+<!-- fetch获取数据 -->
+<!-- 原生js获取分页加载数据 原理（pageHeight - viewportHeight - scrollHeight < 30;内容真实高度-视口高度-滚动条高度<30即被认为触底）-->
+<!-- 使用rem适配，限定最小，不限定最大 -->
+<!-- 这里的html是用在微信公众号的，字号最好px固定，实现中心版模式，两边留白（交付版实现了px，此处仍然是rem）,使用这种方式可指定最大宽度 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>圣诞鸟物流</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: 'PingFang-SC-Medium';
+            font-size: 0.14rem;
+            color: rgb(51, 51, 51);
+        }
+
+        body {
+            width: 100%;
+        }
+
+        .logistics-wrapper {
+            /* max-width: 750px; */
+            min-width: 320px;
+            margin: 0 auto;
+            box-sizing: border-box;
+            width: 100%;
+            padding: 0 0.13rem;
+        }
+
+        .logistics-title {
+            font-family: 'PingFang-SC-Bold';
+            font-size: 0.18rem;
+            margin: .18rem 0.05rem 0.06rem 0.05rem;
+            ;
+        }
+
+        .logistics-item {
+            width: 100%;
+            height: auto;
+            box-shadow: 0 0 4px 0 #f3f3f3;
+            box-sizing: border-box;
+            padding: 0.12rem;
+            margin-top: 0.12rem;
+        }
+
+        .item-order-num {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 0.04rem 0 0.1rem 0;
+            /* border-bottom: 1px solid #f3f3f3; */
+        }
+
+        .item-order-num img {
+            width: 0.15rem;
+            height: 0.15rem;
+            margin: 00.05rem;
+        }
+
+        .split-line {
+            width: 103.5%;
+            height: 1px;
+            background: #f3f3f3;
+        }
+
+        .good-item {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-top: 0.1rem;
+            padding: 0.05rem 0;
+            background: #F6F6F6;
+            border-radius: 4px;
+        }
+
+        .good-item .good-cover {
+            width: 0.65rem;
+            height: 0.65rem;
+            margin: 0 0.05rem;
+            vertical-align: middle;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+        }
+
+        .good-item .good-cover img {
+            width: 100%;
+
+        }
+
+        .good-item .good-content {
+            flex: 1;
+            margin: 0 0.1rem;
+            /* display: flex;
+            flex-direction: column;
+            justify-content: center; */
+        }
+
+        .methods {}
+
+        .methods img {
+            width: 0.13rem;
+            height: 0.13rem;
+            border-radius: 50%;
+        }
+
+        .title {
+            font-size: 0.12rem;
+            color: rgb(153, 153, 153);
+            margin-top: 0.1rem;
+            width: 100%;
+            max-width: 2.25rem;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .intro {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 96%;
+            box-sizing: border-box;
+            padding: 0 0.04rem 0 0;
+            margin-top: 0.1rem;
+        }
+
+        .intro span {
+            font-size: 0.14rem;
+            color: rgb(153, 153, 153);
+
+        }
+
+        .intro .intro-num {
+            font-size: 0.12rem;
+        }
+
+        .settlement {
+            width: 100%;
+            margin: 0.17rem 0 0.07rem 0;
+            text-align: right;
+            font-size: 0.12rem;
+            color: rgb(153, 153, 153);
+        }
+
+        /* 空集 */
+        .blank-block {
+            width: 1.42rem;
+            height: auto;
+            margin: 1.00rem auto;
+        }
+
+        .blank-block img {
+            width: 100%;
+        }
+
+        .blank-block .blank-text {
+            width: 100%;
+            font-size: 0.14rem;
+            color: rgb(153, 153, 153);
+            text-align: center;
+            margin-top: 0.2rem;
+        }
+
+        .blank-block .into-SDN {
+            width: 1rem;
+            height: 0.3rem;
+            line-height: 0.3rem;
+            margin: 0.5rem auto 0 auto;
+            border-radius: 0.3rem;
+            text-align: center;
+            background: linear-gradient(to right, #FE4B4B, #E72121);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="logistics-wrapper">
+        <div class="logistics-title">全部订单信息</div>
+        <div class="logistics-box">
+            <!-- <div class="logistics-item">
+                <div class="item-order-num">
+                    <img src="./images/dingdan.png" alt="">
+                    <span>订单编号 996177777</span>
+                </div>
+                <div class="item-goods-box">
+                    <div class="good-item">
+                        <img src="./images/dingdan.png" alt="">
+                        <div class="good-content">
+                            <div class="methods">
+                                <img src="./images/dingdan.png" alt="">
+                                <span>京东快递 996177777</span>
+                            </div>
+                            <div class="title">产品名称产品名称产品名称产品名称产品名称产品名称</div>
+                            <div class="intro">
+                                <span>￥199</span>
+                                <span class="intro-num">x 1</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="good-item">
+                        <img src="./images/dingdan.png" alt="">
+                        <div class="good-content">
+                            <div class="methods">
+                                <img src="./images/dingdan.png" alt="">
+                                <span>京东快递 996177777</span>
+                            </div>
+                            <div class="title">产品名称产品名称产品名称产品名称产品名称产品名称</div>
+                            <div class="intro">
+                                <span>￥199</span>
+                                <span class="intro-num">x 1</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="good-item">
+                        <img src="./images/dingdan.png" alt="">
+                        <div class="good-content">
+                            <div class="methods">
+                                <img src="./images/dingdan.png" alt="">
+                                <span>京东快递 996177777</span>
+                            </div>
+                            <div class="title">产品名称产品名称产品名称产品名称产品名称产品名称</div>
+                            <div class="intro">
+                                <span>￥199</span>
+                                <span class="intro-num">x 1</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="settlement">共2件商品，合计￥199元</div>
+            </div> -->
+
+        </div>
+    </div>
+    <scrip src="./js/fetch.js">
+        </script>
+        <script>
+            // 设置适配rem
+            //375/100px=clientWidth/fontSizepx
+            let clientWidth = document.documentElement.clientWidth || document.body.clientWidth;
+            let fontSize = clientWidth * 100 / 375 + 'px';
+            document.documentElement.style.fontSize = fontSize;
+            document.body.style.fontSize = fontSize;
+        </script>
+        <script>
+            let result = [],
+                page = 1,
+                loading = false,
+                // 68374,11478
+                user_id = 11478;
+            doHtml();
+            let s = setInterval(function () {
+                let flag = reachBottom();
+                if (flag && !loading) {
+                    page++;
+                    doHtml();
+                }
+            }, 1000)
+            function fetchPost(url, data) {
+                let host = url;
+                let dataUrl = '';
+                if (data) {
+                    for (let item in data) {
+                        if (data.hasOwnProperty(item)) {
+                            dataUrl += ('&' + item + '=' + data[item]);
+                        }
+                    }
+                }
+                // data的转换格式是'&func=get-user-progress&user_id=68374&page=1'==》Form Data:func: get-user-progress
+                //                                                                                  user_id: 68374
+                //                                                                                  page: 1
+                let body = dataUrl;
+
+                return fetch(host, {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: body
+                }).then(function (res) {
+                    if (res.status !== 200) {
+                        console.log('Looks like there was a problem. Status Code: ' + res.status);
+                        return;
+                    }
+                    // 处理响应中的文本信息        
+                    return res.json();
+                }).catch(function (err) {
+                    console.log('Fetch Error : %S', err);
+                })
+            }
+            function doHtml() {
+                loading = true;
+                fetchPost('https://wds-test.yfway.com/index.php?s=/Home/Api/action', { func: 'get-user-progress', user_id: user_id, page: page }).then((data) => {
+                    console.log(data);
+                    loading = false;
+                    if (data.length == 0) {
+                        clearInterval(s);
+                        return;
+                    }
+                    result = result.concat(data);
+                    let html = ''
+                    let target = document.getElementsByClassName('logistics-box')[0];
+                    let blankTarget = document.getElementsByClassName('logistics-wrapper')[0];
+
+                    if (result.length == 0) {
+                        html += `<div class="blank-block">
+                            <img src="./images/kongji.png" alt=""/>
+                            <div class="blank-text">你还没有订单物流信息去商城逛逛吧</div>
+                            <div class="into-SDN">逛逛商城</div>
+                        </div>`;
+                        blankTarget.innerHTML = html;
+                        return;
+                    }
+                    result.map((item, index) => {
+                        html += `<div class="logistics-item">
+                                <div class="item-order-num">
+                                    <img src="./images/dingdan.png" alt="">
+                                    <span>订单编号 `+ item.order_id + `</span>
+                                </div>
+                                <div class="split-line"></div>
+                                <div class="item-goods-box">`;
+                        if (item.goods_express.length > 0) {
+                            item.goods_express.map((innerItem, innerIndex) => {
+                                let params = JSON.stringify(innerItem);
+                                html += `<div class="good-item" onclick='onIntoDetail(` + params + `,` + item.order_id + `)'>
+                                                        <div class="good-cover">
+                                                            <img src="`+ innerItem.cover + `" alt=""/>
+                                                        </div>
+                                                        <div class="good-content">
+                                                            <div class="methods">
+                                                                <img src="`+ innerItem.express_company_cover + `" alt="">
+                                                                <span>`+ innerItem.express_company + ` ` + innerItem.express_number + `</span>
+                                                            </div>
+                                                            <div class="title">`+ innerItem.name + `</div>
+                                                            <div class="intro">
+                                                                <span>￥`+ innerItem.should_price + `</span>
+                                                                <span class="intro-num">x 1</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>`;
+                            })
+                        }
+
+                        html += `</div>
+                             <div class="settlement">共`+ item.goods_number + `件商品，合计￥` + item.total_price + `元</div>
+                            </div>`;
+                    });
+                    target.innerHTML = html;
+                });
+            }
+            function reachBottom() {
+                let pageHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, document.body.offsetHeight, document.documentElement.offsetHeight);
+                let viewportHeight = window.innerHeight ||
+                    document.documentElement.clientHeight ||
+                    document.body.clientHeight || 0;
+                let scrollHeight = window.pageYOffset ||
+                    document.documentElement.scrollTop ||
+                    document.body.scrollTop || 0;
+                // console.log(pageHeight);
+                // console.log(viewportHeight);
+                // console.log(scrollHeight);
+                return pageHeight - viewportHeight - scrollHeight < 30;
+            }
+            function onIntoDetail(item, order_id) {
+                // item = JSON.parse(item);
+                if (item.type == 1) {
+                    let data = { func: 'jd-trace-deliver', order_id: order_id, express_number: item.express_number };
+                    window.sessionStorage.setItem('good', JSON.stringify(item));
+                    window.location.href = "./detail.html?li=" + encodeURIComponent(JSON.stringify(data));
+
+                } else if (item.type == 8) {
+                    alert('请联系客服');
+                } else {
+                    window.open(item.express_url);
+                }
+
+            }
+
+        </script>
+</body>
+
+</html>
