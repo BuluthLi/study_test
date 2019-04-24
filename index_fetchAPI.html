@@ -353,6 +353,9 @@
                             </div>`;
                     });
                     target.innerHTML = html;
+                }).catch((err) => {
+                    console.log(err);
+                    clearInterval(s);
                 });
             }
             function reachBottom() {
