@@ -87,12 +87,13 @@
             align-items: center;
             justify-content: center;
             background: white;
+            overflow: hidden;
         }
 
-        .good-item .good-cover img {
+        /* .good-item .good-cover img {
             width: 100%;
 
-        }
+        } */
 
         .good-item .good-content {
             flex: 1;
@@ -330,8 +331,7 @@
                             item.goods_express.map((innerItem, innerIndex) => {
                                 let params = JSON.stringify(innerItem);
                                 html += `<div class="good-item" onclick='onIntoDetail(` + params + `,` + item.order_id + `)'>
-                                                        <div class="good-cover">
-                                                            <img src="`+ innerItem.cover + `" alt=""/>
+                                                        <div class="good-cover" style="background:url('`+ innerItem.cover + `') no-repeat center center;background-size:contain;">
                                                         </div>
                                                         <div class="good-content">
                                                             <div class="methods">
