@@ -51,8 +51,8 @@
 </head>
 
 <body>
-    <div class="box">
-        <!-- 等待加载的图片可以是loading的网络图，也可是空白，亦可以是一层灰色的背景图 -->
+    <!-- 等待加载的图片可以是loading的网络图，也可是空白，亦可以是一层灰色的背景图 -->
+    <!-- <div class="box">
         <img src="./images/load.png" data-url="./images/example01.png" alt="">
     </div>
     <div class="box">
@@ -66,13 +66,29 @@
     <div class="box">
 
         <img src="./images/load.png" data-url="./images/example04.gif" alt="">
+    </div> -->
+    <!-- ----------------------------------------------------------------------------------------- -->
+    <div class="box">
+        <img src="./images/load.png" data-echo="./images/example01.png" alt="">
+    </div>
+    <div class="box">
+        <img src="./images/load.png" data-echo="./images/example02.png" alt="">
+
+    </div>
+    <div class="box">
+
+        <img src="./images/load.png" data-echo="./images/example03.jpg" alt="">
+    </div>
+    <div class="box">
+
+        <img src="./images/load.png" data-echo="./images/example04.gif" alt="">
     </div>
     <div>haihaihaiai</div>
     <div>haihaihaiai</div>
     <div>haihaihaiai</div>
     <div>haihaihaiai</div>
-    <!-- <div class="hai"></div> -->
-    <script>
+    <!-- 原生实现图片懒加载 -->
+    <!-- <script>
         var aImages = document.getElementsByTagName('img');
         var divs = document.getElementsByTagName('div');
         console.log(aImages);
@@ -121,6 +137,14 @@
             }
             oImg.src = url;
         }
+    </script> -->
+    <!-- 引入echo.js实现图片懒加载 -->
+    <script src="./js/echo.js"></script>
+    <script>
+        Echo.init({
+            offset: 0,//离可视区域多少像素的图片可以被加载
+            throttle: 0 //图片延时多少毫秒加载
+        });
     </script>
 </body>
 
