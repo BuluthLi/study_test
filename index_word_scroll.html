@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>word_scroll</title>
+    <style>
+        .wrapper {
+            width: 100%;
+            height: 40px;
+            font-size: 14px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 99;
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+
+        .box {
+            margin: 10px auto 0 auto;
+            width: 92%;
+            height: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .text {
+            white-space: nowrap;
+            white-space: nowrap;
+            position: absolute;
+            left: 0;
+            top: 0
+        }
+
+        /* .text::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            z-index: 101;
+            opacity: 0.5;
+
+        } */
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="box">
+            <div class="text"></div>
+        </div>
+    </div>
+    <script>
+        let data = [
+            '111111111111111111111111111111111111',
+            '222222222222222222222222222222222222',
+            '333333333333333333333333333333333333',
+            '444444444444444444444444444444444444',
+            '555555555555555555555555555555555555',
+            '666666666666666666666666666666666666',
+            '777777777777777777777777777777777777',
+            '888888888888888888888888888888888888',
+            '999999999999999999999999999999999999',
+        ];
+        let blank = '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp';
+        let arr = '';
+        data.forEach(item => {
+            arr += item + blank;
+        });
+        console.log(arr);
+        let target = document.querySelector('.text');
+        target.innerHTML = arr;
+        let init = 0;
+        let s = setInterval(data => {
+            init -= 2;
+            target.style.left = init + 'px';
+        }, 100)
+    </script>
+</body>
+
+</html>
