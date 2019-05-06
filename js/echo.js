@@ -23,7 +23,7 @@ window.Echo = (function (window, document, undefined) {
         for (var i = store.length; i--;) {
             var self = store[i];
             if (_inView(self)) {
-                self.src = self.getAttribute('data-echo');
+                self.src = self.getAttribute('data-src');
                 store.splice(i, 1);
             }
         }
@@ -35,7 +35,7 @@ window.Echo = (function (window, document, undefined) {
     };
 
     var init = function (obj) {
-        var nodes = document.querySelectorAll('[data-echo]');
+        var nodes = document.querySelectorAll('[data-src]');
         var opts = obj || {};
         offset = opts.offset || 0;
         throttle = opts.throttle || 250;
