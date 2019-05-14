@@ -47,16 +47,101 @@
             opacity: 0.5;
 
         } */
+        /* ------------------------------------------------------------------------ */
+        .wrapper2 {
+            width: 100%;
+            height: 40px;
+            background: green;
+            overflow: hidden;
+            padding-top: 0.1px;
+            white-space: nowrap;
+            line-height: 40px;
+            position: fixed;
+            top: 400px;
+            left: 0;
+            z-index: 99;
+        }
+
+        .box2,
+        .box2-fuben {
+            display: inline;
+        }
+
+        /* ---------------------------------------------------------------- */
+        #gongao {
+            width: 1000px;
+            height: 30px;
+            overflow: hidden;
+            line-height: 30px;
+            font-size: 13px;
+            font-family: '宋体';
+            background: #DDE5ED;
+            color: #0C77CF;
+            font-weight: bold;
+        }
+
+        #gongao #scroll_begin,
+        #gongao #scroll_end {
+            display: inline
+        }
     </style>
 </head>
 
 <body>
-    <div class="wrapper">
+    <!-- ----------------------------------------------------------------  -->
+    <!-- 绝对定位测试 -->
+    <!-- <div class="wrapper">
         <div class="box">
             <div class="text"></div>
         </div>
+    </div> -->
+    <!-- ----------------------------------------------------------------  -->
+
+    <!-- 使用scrollLeft进行滑动 -->
+    <div class="wrapper2">
+        <div class="box2">woshi谁啊我是虚弱话代理机构领导机构及哦都是是的顺丰到付</div>
+        <div class="box2-fuben"></div>
     </div>
-    <script>
+    <!-- ----------------------------------------------------------------  -->
+
+    <!-- <div id="gongao">
+        <div style="width:900px;height:30px;margin:0 auto;white-space: nowrap;overflow:hidden;" id="scroll_div"
+            class="scroll_div">
+            <div id="scroll_begin">$ {
+                affiche.content
+                }
+
+                $ {
+                affiche.content
+                }
+
+                $ {
+                affiche.content
+                }
+
+                $ {
+                affiche.content
+                }
+
+                $ {
+                affiche.content
+                }
+
+                $ {
+                affiche.content
+                }$ {
+                affiche.content
+                }$ {
+                affiche.content
+                }
+
+            </div>
+            <div id="scroll_end"></div>
+        </div> -->
+    <!-- ----------------------------------------------------------------  -->
+    <!-- ----------------------------------------------------------------  -->
+
+    <!-- <script>
         let data = [
             '111111111111111111111111111111111111',
             '222222222222222222222222222222222222',
@@ -81,7 +166,48 @@
             init -= 2;
             target.style.left = init + 'px';
         }, 100)
+    </script> -->
+    <!-- ----------------------------------------------------------------  -->
+
+    <script>
+        let target = document.querySelector('.wrapper2');
+        let box2 = document.querySelector('.box2');
+        let box2Fuben = document.querySelector('.box2-fuben');
+        box2Fuben.innerHTML = box2.innerHTML;
+        // 当scrollLeft的值大于div的内容超出的距离，再增加scrollLeft是不生效的,因此有了box2-fuben进行内容的挤开
+        console.log(target.scrollLeft);
+        let s = setInterval(item => {
+            if (box2Fuben.offsetWidth - target.scrollLeft <= 0) {
+                target.scrollLeft = 0;
+            } else {
+                target.scrollLeft += 2;
+            }
+        }, 50);
     </script>
+    <!-- ----------------------------------------------------------------  -->
+
+    <!-- <script type="text/javascript">
+        function ScrollImgLeft() {
+            var speed = 50;
+            var scroll_begin = document.getElementById("scroll_begin");
+            var scroll_end = document.getElementById("scroll_end");
+            var scroll_div = document.getElementById("scroll_div");
+            scroll_end.innerHTML = scroll_begin.innerHTML;
+            console.log(scroll_div.scrollLeft);
+            function Marquee() {
+                if (scroll_end.offsetWidth - scroll_div.scrollLeft <= 0)
+                    scroll_div.scrollLeft -= scroll_begin.offsetWidth;
+                else
+                    scroll_div.scrollLeft++;
+            }
+            var MyMar = setInterval(Marquee, speed);
+            scroll_div.onmouseover = function () { clearInterval(MyMar); }
+            scroll_div.onmouseout = function () { MyMar = setInterval(Marquee, speed); }
+        }
+        ScrollImgLeft();
+    </script> -->
+    <!-- ----------------------------------------------------------------  -->
+
 </body>
 
 </html>

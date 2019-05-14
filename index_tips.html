@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 禁止用户双击放大 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>常见小技巧</title>
 </head>
@@ -27,6 +28,18 @@
         int3 = ~~int3;
         console.log(int, int2, int3); // Result: 15
         console.log(typeof int, typeof int2, typeof int3);
+        console.log('--------------------------------------------------------');
+        // RegExp.$1的使用方式
+        var str2 = '120pt'
+        var str3 = '120px'
+        var regtest = /^(\d+)(pt|px|em)?/
+        console.log(regtest.exec(str2))//整个正则表达式反回的结果。
+        console.log(RegExp.$1)//返回正则中第一个子表达式的结果。
+        console.log(RegExp.$2)//返回正则中第二个子表达式的结果。
+    // console.log(regtest.exec(str3))//整个正则表达式反回的结果。
+    // 使用RegExp.$1，必须使用一次正则，exec或者test(正则方法),或者match(字符串方法)
+    // console.log(RegExp.$1)//返回正则中第第一个子表达式的结果。
+    // console.log(RegExp.$2)//返回正则中第二个子表达式的结果。
     </script>
 </body>
 
