@@ -114,9 +114,10 @@
         // -----------------------------------------------------------------------------------------------------------------
         // ---------------------------------------------完整案例------------------------------------------------------------
         // -----------------------------------------------------------------------------------------------------------------
+        // type为0是正常页面的整体滚动，type为1是局部滚动分页（此处是type为0，type为1如同上面所述）
         let target = document.getElementsByClassName('inner-box')[0];
         let s = setInterval(() => {
-            reachBottom(target, 1);
+            reachBottom(target);
         }, 1000);
         function reachBottom(target, type) {
             type = type ? type : 0;
@@ -125,7 +126,8 @@
             let scrollHeight = document.documentElement.scrollTop;
             let pageHeight = parseInt(window.getComputedStyle(target, null).height.replace(/px/g, ''));
             // 页面自然形式的触底
-            if (scrollHeight == 0) return false;
+            if (scrollHeight <= 0) return false;
+            // 元素真实高度，视口或者限制滚动的高度，滚动条高度
             console.log(pageHeight, viewportHeight, scrollHeight);
             if (pageHeight - viewportHeight - scrollHeight < 20) {
                 console.log('触底了');
