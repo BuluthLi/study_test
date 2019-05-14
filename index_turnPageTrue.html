@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>turn page</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .box {
+            /* height: 300px;
+            overflow: hidden;
+            overflow-y: scroll;
+            margin-top: 200px;
+            position: relative; */
+        }
+
+        .item:first-child {
+            margin-top: 0;
+        }
+
+        .item {
+            width: 100%;
+            height: 100px;
+            background: red;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="box">
+            <div class="inner-box">
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+            </div>
+        </div>
+    </div>
+    <script src="./js/jquery3.3.1.js"></script>
+    <script>
+        // let s = setTimeout(() => {
+        //     let target = document.getElementsByClassName('box')[0];
+        //     let inner = document.getElementsByClassName('inner-box')[0];
+        //     let height = window.getComputedStyle(target, null).height;
+        //     let scrollHeight = window.getComputedStyle(inner, null).scrollTop;
+        //     // scrollTop包含margin
+        //     let toptop = document.documentElement.scrollTop;
+        //     let xu = $('.inner-box').offset().top;
+        //     // 画长方形，不包含margin
+        //     let dls = inner.getBoundingClientRect();
+        //     let dls2 = document.getElementsByTagName('body')[0].getBoundingClientRect();
+        //     xu = window.getComputedStyle(inner, null).offsetTop;
+        //     console.log(dls, dls2);
+        //     xu = inner.offsetTop;
+        //     console.log(height, scrollHeight, window.getComputedStyle(target, null), toptop, hai, xu);
+        // }, 2000);
+        // let target = document.getElementsByClassName('box')[0];
+        // let inner = document.getElementsByClassName('inner-box')[0];
+        // let height = window.getComputedStyle(target, null).height;
+        // let scrollHeight = window.getComputedStyle(inner, null).scrollTop;
+        // let toptop = document.documentElement.scrollTop;
+        // let hai = $('.inner-box').scrollTop();
+        // let xu = $('.inner-box').offset().top;
+        // console.log(height, scrollHeight, window.getComputedStyle(target, null), toptop, hai, xu);
+        // -----------------------------------------------------------------------------------
+        // getBoundingClientRect()相对于视窗的位置集合，window.getComputedStyle(target, null)获取dom的全体属性集合
+        // let target = document.getElementsByClassName('inner-box')[0];
+        // // margin-top:20
+        // let s = setInterval(() => {
+        //     reachBottom(target, 1);
+        // }, 1000);
+        // function reachBottom(target, type) {
+        //     type = type ? type : 0;
+        //     target = target ? target : document.getElementsByTagName('html')[0];
+        //     // 手机使用
+        //     // let viewportHeight = window.screen.availHeight||window.screen.availHeight;
+        //     // 电脑使用
+        //     // let viewportHeight =  document.documentElement.clientHeight;
+        //     let viewportHeight = window.screen.availHeight || window.screen.availHeight || document.documentElement.clientHeight;
+        //     // let scrollHeight = document.getElementsByTagName('html')[0].getBoundingClientRect();
+        //     let scrollHeight = document.documentElement.scrollTop;
+        //     let pageHeight = parseInt(window.getComputedStyle(target, null).height.replace(/px/g, ''));
+
+        //     if (type == 1) {
+        //         let margin = 0;
+        //         let parent = target.parentNode && target.parentNode.nodeType !== 11 ? target.parentNode : null;
+        //         viewportHeight = parseInt(window.getComputedStyle(parent, null).height.replace(/px/g, ''));
+        //         //  先要获取target初始状态在页面的位置initTop，因为getBoundingClientRect()是根据视口来计算的，在计算新的scrollHeight
+        //         // 然后scrollHeight=initTop-target.getBoundingClientRect().top,就不需要margin了；
+        //         let top = target.getBoundingClientRect().top > 0 ? 0 : target.getBoundingClientRect().top
+        //         scrollHeight = -(top - margin);
+        //         console.log(target.getBoundingClientRect().top, pageHeight, viewportHeight, scrollHeight);
+        //     }
+        //     // 页面自然形式的触底
+        //     if (scrollHeight == 0) return false;
+        //     if (pageHeight - viewportHeight - scrollHeight < 20) {
+        //         console.log('触底了');
+        //     }
+        //     return pageHeight - viewportHeight - scrollHeight < 20;
+
+        // }
+        // -----------------------------------------------------------------------------------------------------------------
+        // ---------------------------------------------完整案例------------------------------------------------------------
+        // -----------------------------------------------------------------------------------------------------------------
+        let target = document.getElementsByClassName('inner-box')[0];
+        let s = setInterval(() => {
+            reachBottom(target, 1);
+        }, 1000);
+        function reachBottom(target, type) {
+            type = type ? type : 0;
+            target = target ? target : document.getElementsByTagName('html')[0];
+            let viewportHeight = window.screen.availHeight || window.screen.availHeight || document.documentElement.clientHeight;
+            let scrollHeight = document.documentElement.scrollTop;
+            let pageHeight = parseInt(window.getComputedStyle(target, null).height.replace(/px/g, ''));
+            // 页面自然形式的触底
+            if (scrollHeight == 0) return false;
+            console.log(pageHeight, viewportHeight, scrollHeight);
+            if (pageHeight - viewportHeight - scrollHeight < 20) {
+                console.log('触底了');
+            }
+            return pageHeight - viewportHeight - scrollHeight < 20;
+        }
+    </script>
+</body>
+
+</html>
