@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function reachBottom() {
+            let target = document.querySelector(".wrapper");
+            let trueHeight = parseInt(window.getComputedStyle(target, null).height);
+            let pageHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, document.body.offsetHeight,
+                document.documentElement.offsetHeight, trueHeight);
+            let viewportHeight = window.innerHeight ||
+                document.documentElement.clientHeight ||
+                document.body.clientHeight || 0;
+            let scrollHeight = window.pageYOffset ||
+                document.documentElement.scrollTop ||
+                document.body.scrollTop || 0;
+            return pageHeight - viewportHeight - scrollHeight < 20;
+        }
+    </script>
+</body>
+
+</html>
