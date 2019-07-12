@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue page</title>
+    <style>
+        .text {
+            text-align: center;
+            font-size: 48px;
+            color: #eaeaea;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="text">{{message}}</div>
+        <like :myprops="message" v-on:parents="onParents"></like>
+    </div>
+    <script src="./js/vue/vue.js"></script>
+    <script>
+        // 全局组件注册方式，不推荐
+        // Vue.component('like', {
+        //     template: `<div>
+        //                     <h2>这是一个全局组件</h2>
+        //                     <p>全局组件内容省略！</p>
+        //             </div>`
+        // });
+        //组件分离，局部组件
+        let like = {
+            data() {
+                return {
+                    msg: '测试的子模板'
+                }
+            },
+            props: {
+                myprops: {
+                    type: String,
+                    default: ''
+                }
+            },
+            template: `<div class="like" @click="onAlert">我是子组件啊，{{msg}}出现!{{myprops}}</div>`,
+            // methods里面不建议使用箭头函数（避免this指向window），
+            methods: {
+                onAlert: function () {
+                    this.$emit('parents', '我是你子组件传过来的信息')
+                }
+            }
+        }
+        new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello World!'
+            },
+            methods: {
+                onParents: function (value) {
+                    alert(value);
+                }
+            },
+            components: {
+                "like": like
+            }
+        })
+    </script>
+</body>
+
+</html>

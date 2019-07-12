@@ -1,0 +1,280 @@
+<html>
+
+<head>
+    <title>My first three.js app</title>
+    <style>
+        html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td { margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent }
+body { line-height: 1 }
+ol, ul { list-style: none }
+blockquote, q { quotes: none }
+blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none }
+:focus { outline: 0 }
+ins { text-decoration: none }
+del { text-decoration: line-through }
+table { border-collapse: collapse; border-spacing: 0 }
+a { text-decoration: none; color: #fff }
+body { font-family: "Kreon"; font-weight: 300; color: #333; background: #f5f5f5 }
+#switcher { height: 54px; background: url(bg2.png) repeat-x; z-index: 99999; position: fixed; width: 100%; top: 0; background: #000; }
+.center { width: 100%; padding-top: 0 }
+.center ul li { display: inline; float: left; position: relative }
+.logoTop, .top2 { margin-left: 30px;margin-right: 30px; margin-top: 20px; color: #fff; font-weight: bold; font-family: "微软雅黑" }
+
+@media screen and (max-width:1082px) {
+#sj { display: none; }
+#sj2 { display: none; }
+}
+.top2 {
+    position: relative;
+    margin-top: 0px;
+    font-size: 12px;
+    font-weight: normal;
+    background-image: url(img/2vmd.png);
+    background-repeat: no-repeat;
+    background-position: 3px center;
+    padding-top: 17px;
+    padding-bottom: 16px;
+    padding-left: 45px;
+    line-height: 20px;
+    padding-right: 15px;
+    background-position: 15px;
+    background-color: #2b2b2b;
+}
+.vm { position: absolute; top: 53px; left: 0px; background-color: #fff; height: 170px; width: 150px; display: none; padding: 30px; }
+.top2:hover .vm { display: block }
+.logoTop a:hover { text-decoration: underline }
+.center ul li ul { font-family: 'Droid Serif', serif; display: none; margin-left: 17px; position: absolute; width: 313px; background: #10100f; border: 1px solid #323024; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding-bottom: 3px; line-height: 18px; }
+.center ul li ul li { margin: 0 0 1px 4px; padding: 5px; width: 271px }
+.center ul li ul li a { display: block; width: 210px; font-size: 13px; color: #c4beab; float: left; line-height: 22px; white-space: nowrap; overflow: hidden }
+.center ul li ul li .tag { display: block; width: 50px; height: 22px; font-size: 10px; color: #c4beab; margin: 0 8px 0 0; line-height: 22px; white-space: nowrap; background: url(sel-sp-act.png) no-repeat; text-align: center; float: left }
+.center ul li ul li a span.link { display: block; width: 209px; height: 22px; overflow: hidden; float: left }
+.center ul li ul li:hover { background: url(sel-act.png) no-repeat }
+.center ul li ul li:hover a { color: #f8bc06 }
+.center ul li ul li:hover .tag { color: #f8bc06 }
+.center ul li ul li:first-child { margin-top: 3px }
+li.device-resolution { text-transform: uppercase; font-size: 12px; color: #ada58b; font-family: 'Cambria'; line-height: 54px }
+li.purchase { float: right!important; margin-top: 11px }
+li.purchase a { padding: 0; background: url(trolley2.png) no-repeat 0 0; width: 133px; height: 36px; display: block; transition: all .3s ease-out 0s }
+li.purchase a:hover { background-position: 0 -36px }
+li.remove_frame { margin-left: 17px; float: right!important; margin-right: 30px }
+li.remove_frame a { background: url(img/cross2.png) no-repeat 0 0; width: 20px; height: 21px; display: block; margin-top: 18px; transition: all .3s ease-out 0s }
+li.remove_frame a:hover { background-position: 0 -21px }
+#iframe { margin-top: 0 }
+.icon-monitor, .icon-tablet, .icon-mobile-1, .icon-mobile-2, .icon-mobile-3 { margin-right: 7px; margin-top: 20px; width: 17px; height: 16px }
+.icon-monitor { margin-left: 10px; background-image: url(img/mon-spr.png); background-position: 0 0; background-repeat: no-repeat }
+.icon-tablet { background: url(img/mon-spr.png) no-repeat -24px 0 }
+.icon-mobile-1 { background: url(img/mon-spr.png) no-repeat -49px 0 }
+.icon-monitor:hover, .icon-monitor.active { background-position: 0 -16px }
+.icon-tablet:hover, .icon-tablet.active { background-position: -24px -16px }
+.icon-mobile-1:hover, .icon-mobile-1.active { background-position: -49px -16px }
+.icon-mobile-2 { background: url(img/mon-spr.png) no-repeat -71px 0 }
+.icon-mobile-3 { background: url(img/mon-spr.png) no-repeat -94px 0 }
+.icon-mobile-2:hover, .icon-mobile-2.active { background-position: -71px -16px }
+.icon-mobile-3:hover, .icon-mobile-3.active { background-position: -94px -16px }
+#iframe-wrap { height: 100%; overflow: visible; position: relative; top: 54px; z-index: 50 }
+.tablet-width { height: 960px!important; margin: 0 auto; padding: 96px 100px 115px 49px; width: 785px; margin-top: 40px; background: url(img/bgipad.png) no-repeat 0 0;transition: all 0.5s ease 0s;}
+.tablet-width iframe { height: 960px!important }
+.mobile-width { height: 703px!important; margin: 0 auto; padding: 41px 115px 100px 75px; width: 1041px; margin-top: 40px; background: url(img/bgipadw.png) no-repeat;transition: all 0.5s ease 0s; }
+.mobile-width iframe { height: 704px!important }
+.mobile-width-2 { height: 540px!important; margin: 0 auto; padding: 102px 25px 159px 23px; width: 337px; margin-top: 40px; background: url(img/bgiphone.png) no-repeat;transition: all 0.5s ease 0s;}
+.mobile-width-2 iframe { height: 585px!important }
+.mobile-width-3 { height: 273px!important; margin: 0 auto; padding: 43px 115px 69px 82px; width: 605px; margin-top: 40px; background: url(img/bgiphonew.png) no-repeat;transition: all 0.5s ease 0s; }
+.mobile-width-3 iframe { height: 317px!important }
+.by { overflow-y: hidden }
+.fdad { width: 336px; background-color: #FFF; position: fixed; top: 84px; right: 25px; opacity: .9; z-index: 888;  }
+.fdl { float: left; font-family: Arial; font-size: 12px; padding-left: 5px; color: #ccc; line-height: 20px }
+.fdr { float: right; font-family: Arial; font-size: 16px; padding-left: 5px; padding-right: 5px; background-color: #ccc; cursor: pointer }
+.fdadnr {}
+/* 自定义 */
+.snow-container{
+    width:100%;
+    height:906px;
+}
+canvas{
+    position:absolute;
+    z-index:999;
+    width:100%;
+    height:100%;
+}
+.bg{
+    background-image:url('./images/bg.png');
+    position:absolute;
+    z-index:998;
+}
+    </style>
+</head>
+
+<body>
+    <div class="snow-container"><canvas  class="bg"></canvas></div>
+    <script src="js/snow/three.min.js"></script>
+    <!-- <script src="js/snow/jquery-1.10.0.js"></script> -->
+    <script src="js/jquery.min.js_v1.7"></script>
+
+    <!-- <script>
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        var geometry = new THREE.BoxGeometry(1, 1, 1);
+        var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        var cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+
+        camera.position.z = 5;
+
+        var animate = function () {
+            requestAnimationFrame(animate);
+
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+
+            renderer.render(scene, camera);
+        };
+
+        animate();
+    </script> -->
+    <script>
+
+        function randomRange(t, i) {
+            return Math.random() * (i - t) + t
+        }
+        Particle3D = function (t) {
+            THREE.Particle.call(this, t), this.velocity = new THREE.Vector3(0, -2, 0), this.velocity.rotateX(randomRange(-
+                45, 45)), this.velocity.rotateY(randomRange(0, 360)), this.gravity = new THREE.Vector3(0, 0, 0), this
+                    .drag = 1
+        }, Particle3D.prototype = new THREE.Particle, Particle3D.prototype.constructor = Particle3D, Particle3D.prototype
+            .updatePhysics = function () {
+                this.velocity.multiplyScalar(this.drag), this.velocity.addSelf(this.gravity), this.position.addSelf(this
+                    .velocity)
+            };
+        var TO_RADIANS = Math.PI / 180;
+        THREE.Vector3.prototype.rotateY = function (t) {
+            cosRY = Math.cos(t * TO_RADIANS), sinRY = Math.sin(t * TO_RADIANS);
+            var i = this.z,
+                o = this.x;
+            this.x = o * cosRY + i * sinRY, this.z = o * -sinRY + i * cosRY
+        }, THREE.Vector3.prototype.rotateX = function (t) {
+            cosRY = Math.cos(t * TO_RADIANS), sinRY = Math.sin(t * TO_RADIANS);
+            var i = this.z,
+                o = this.y;
+            this.y = o * cosRY + i * sinRY, this.z = o * -sinRY + i * cosRY
+        }, THREE.Vector3.prototype.rotateZ = function (t) {
+            cosRY = Math.cos(t * TO_RADIANS), sinRY = Math.sin(t * TO_RADIANS);
+            var i = this.x,
+                o = this.y;
+            this.y = o * cosRY + i * sinRY, this.x = o * -sinRY + i * cosRY
+        };
+        $(function () {
+            var container = document.querySelector(".snow-container");
+            if (/MSIE 6|MSIE 7|MSIE 8/.test(navigator.userAgent)) {
+                return
+            } else {
+                if (/MSIE 9|MSIE 10/.test(navigator.userAgent)) {
+                    $(container).css("height", '100%').bind("click", function () {
+                        $(this).fadeOut(1000, function () {
+                            $(this).remove()
+                        })
+                    })
+                }
+            }
+            var containerWidth = $(container).width();
+            var containerHeight = $(container).height();
+            var particle;
+            var camera;
+            var scene;
+            var renderer;
+            var mouseX = 0;
+            var mouseY = 0;
+            var windowHalfX = window.innerWidth / 2;
+            var windowHalfY = window.innerHeight / 2;
+            var particles = [];
+            var particleImage = new Image();
+            particleImage.src = "images/snow.png";
+            var snowNum = 500;
+
+            function init() {
+                camera = new THREE.PerspectiveCamera(75, containerWidth / containerHeight, 1, 10000);
+                camera.position.z = 1000;
+                scene = new THREE.Scene();
+                scene.add(camera);
+                renderer = new THREE.CanvasRenderer();
+                // renderer = new THREE.WebGLRenderer();
+                renderer.setSize(containerWidth, containerHeight);
+                var material = new THREE.ParticleBasicMaterial({
+                    map: new THREE.Texture(particleImage)
+                });
+                for (var i = 0; i < snowNum; i++) {
+                    particle = new Particle3D(material);
+                    particle.position.x = Math.random() * 2000 - 1000;
+                    particle.position.y = Math.random() * 2000 - 1000;
+                    particle.position.z = Math.random() * 2000 - 1000;
+                    particle.scale.x = particle.scale.y = 1;
+                    scene.add(particle);
+                    particles.push(particle)
+                }
+                container.appendChild(renderer.domElement);
+                document.addEventListener("mousemove", onDocumentMouseMove, false);
+                document.addEventListener("touchstart", onDocumentTouchStart, false);
+                document.addEventListener("touchmove", onDocumentTouchMove, false);
+                setInterval(loop, 1000 / 40)
+            }
+
+            function onDocumentMouseMove(event) {
+                mouseX = event.clientX - windowHalfX;
+                mouseY = event.clientY - windowHalfY
+            }
+
+            function onDocumentTouchStart(event) {
+                if (event.touches.length == 1) {
+                    event.preventDefault();
+                    mouseX = event.touches[0].pageX - windowHalfX;
+                    mouseY = event.touches[0].pageY - windowHalfY
+                }
+            }
+
+            function onDocumentTouchMove(event) {
+                if (event.touches.length == 1) {
+                    event.preventDefault();
+                    mouseX = event.touches[0].pageX - windowHalfX;
+                    mouseY = event.touches[0].pageY - windowHalfY
+                }
+            }
+
+            function loop() {
+                for (var i = 0; i < particles.length; i++) {
+                    var particle = particles[i];
+                    particle.updatePhysics();
+                    with (particle.position) {
+                        if (y < -1000) {
+                            y += 2000
+                        }
+                        if (x > 1000) {
+                            x -= 2000
+                        } else {
+                            if (x < -1000) {
+                                x += 2000
+                            }
+                        }
+                        if (z > 1000) {
+                            z -= 2000
+                        } else {
+                            if (z < -1000) {
+                                z += 2000
+                            }
+                        }
+                    }
+                }
+                camera.position.x += (mouseX - camera.position.x) * 0.005;
+                camera.position.y += (-mouseY - camera.position.y) * 0.005;
+                camera.lookAt(scene.position);
+                renderer.render(scene, camera)
+            }
+            init()
+        });
+
+    </script>
+</body>
+
+</html>
