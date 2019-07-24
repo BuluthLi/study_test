@@ -10,6 +10,10 @@
 
 </body>
 <script>
+    /** 用户操作行为监测,
+      * 在vue中测试表明，使用router体验比window.location.href更好
+      * destroy钩子要手动调用$destrory()方法才会被触发：this.$destory();触发beforeDestory和destoryed两个生命周期hook
+      */
     window.onload = function () {
         (function ($) {
             funObj = {
@@ -17,7 +21,7 @@
             }
             $[funObj.timeUserFun] = function (time) {
                 var time = time || 3;
-                var userTime = time * 60; //设置时间  现在是6s
+                var userTime = time * 60; //设置时间  现在是60s
                 var objTime = {
                     init: 0,
                     time: function () {
