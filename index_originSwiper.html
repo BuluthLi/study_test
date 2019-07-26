@@ -1,0 +1,353 @@
+<!-- 原生的图片轮播无缝衔接 -->
+<!-- 实现的原理(经观察发现和swiper的原理一致)：
+当我们切换到最后一张的时候点击下一张时移动到第一张副本的同时利用js设置css样式迅速切换到真正的第一张这个过程是肉眼无法看到的来达到无缝的目的
+建议：使用jqery版本理解，使用原生js尝试
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>origin swiper</title>
+    <style>
+        a,
+        ul,
+        li {
+            list-style: none;
+            text-decoration: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrap {
+            width: 600px;
+            height: 400px;
+            margin: 100px auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wrap .left {
+            position: absolute;
+            top: 142px;
+            left: -18px;
+        }
+
+        .wrap .left img {
+            width: 80px;
+            height: 80px;
+        }
+
+        .wrap .right {
+            position: absolute;
+            top: 142px;
+            right: -16px;
+        }
+
+        .wrap .right img {
+            width: 80px;
+            height: 80px;
+        }
+
+        .navs {
+            width: 4200px;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: -600px;
+            /*transition: all .3s;*/
+        }
+
+        .navs li {
+            width: 600px;
+            height: 100%;
+            float: left;
+        }
+
+        .navs li img {
+            width: 100%;
+            height: 100%;
+        }
+
+        #bots {
+            display: inline-block;
+            width: 600px;
+            height: 40px;
+            background: rgba(0, 0, 0, .3);
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        #bots li {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #cccccc;
+            position: relative;
+            left: 220px;
+            top: 10px;
+            margin-left: 10px;
+            float: left;
+        }
+
+        #bots .active {
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrap" id="box">
+        <ul id='navs' class="navs" style="left: -600px">
+            <li><a href="javascript:;"><img src="images/banner5.png" title="5" alt="0px" /></a></li>
+            <li><a href="javascript:;"><img src="images/banner1.jpg" title="1" alt="-600px" /></a></li>
+            <li><a href="javascript:;"><img src="images/banner2.jpg" title="2" alt="-1200px" /></a></li>
+            <li><a href="javascript:;"><img src="images/banner3.jpg" title="3" alt="-1800px" /></a></li>
+            <li><a href="javascript:;"><img src="images/banner4.jpg" title="4" alt="-2400px" /></a></li>
+            <li><a href="javascript:;"><img src="images/banner5.png" title="5" alt="-3000px" /></a></li>
+            <li><a href="javascript:;"><img src="images/banner1.jpg" title="1" alt="-3600px" /></a></li>
+        </ul>
+        <a id="pre" class="left"><img src="images/left.png" /></a>
+        <a id="nex" class="right"><img src="images/right.png" /></a>
+        <ul id="bots">
+            <!--<li class="bot active"></li>-->
+            <!--<li class="bot"></li>-->
+            <!--<li class="bot"></li>-->
+            <!--<li class="bot"></li>-->
+            <!--<li class="bot"></li>-->
+        </ul>
+
+        <script>
+            window.onload = function () {
+                var pre = document.getElementById('pre'); // 上一张
+                var nex = document.getElementById('nex'); // 下一张
+                var list = document.getElementById('navs'); // 轮播图
+                var bots = document.getElementById('bots'); // 小圆点
+                var box = document.getElementById('box'); // 最外层容器用来判断鼠标移入移除停止自动轮播
+                var index = 0; // 记录当前小圆点下标
+                var isanimate = true; // 是否自动播放
+                var interval; // 自动播放定时器
+                var disable = true; // 用来控制快速点击导致页面错乱
+                //初始化小圆点
+                for (let i = 0; i < list.children.length - 2; i++) {
+                    let li = document.createElement('li')
+                    bots.appendChild(li)
+                }
+                bots.children[0].className = 'active' // 默认第一个为初始圆点高亮
+                // 上一张
+                pre.onclick = function () {
+                    if (disable) {
+                        disable = false // 这里设置为false表示进入切换动画未完成时就不能点击
+                        index--;  // 小圆点下标--
+                        changebots() //改变高亮
+                        animate(600) // 切换轮播图动画
+                    }
+                }
+                // 下一张
+                nex.onclick = function () {
+                    if (disable) {
+                        disable = false
+                        index++;
+                        changebots()
+                        animate(-600)
+                    }
+                }
+
+                // 改变圆点高亮
+                function changebots() {
+                    if (index < 0) {  // 如果小于0图片到最后一张高亮也对应到最后一个圆点
+                        index = 4
+                    }
+                    else if (index > 4) { // 如果大于于4图片到第一张一张高亮也对应到第一个圆点
+                        index = 0
+                    }
+                    for (let i = 0; i < bots.children.length; i++) {
+                        bots.children[i].className = ''
+                    }
+                    bots.children[index].className = 'active'
+                }
+
+                // 图片切换动画
+                function animate(offset) {
+                    let newLeft = parseInt(list.style.left) + offset;  // 下一张轮播图应该位移到的位置
+                    let interval = 10;  // 图片位移的时间
+                    let speed = (offset / 10) / 3 //每10ms移动的位置这里是设置20px 这里可以根据自己需求改动
+                    // 自动轮播小圆点自动切换
+                    if (isanimate) {
+                        index++;
+                        changebots(index)
+                    }
+
+                    // 利用定时器递归的模拟动画效果切换图片
+                    function change() {
+                        //最后一张
+                        if (parseInt(list.style.left) === -3600) {
+                            list.style.left = -600 + 'px'
+                            newLeft = -1200
+                        }
+                        //第一张
+                        if (parseInt(list.style.left) > 0) {
+                            list.style.left = -3000 + 'px'
+                            newLeft = -2400
+                        }
+                        this.timer = setTimeout(() => {
+                            list.style.left = list.offsetLeft + speed + 'px'
+                            //误差，长时间停放会出现位置left错乱
+                            if (parseInt(list.style.left) != newLeft) { // 判断是否到了应该到的位移位置，到达就清除计时器停止递归
+                                change()
+                            } else {
+                                clearTimeout(this.timer)
+                                disable = true //动画完成进行下一次点击
+                                console.log(disable)
+                                console.log(list.style.left)
+                            }
+                        }, interval)
+                    }
+                    change()
+                    console.log('图片容器位置:', list.style.left, 'point下标：', index);
+                }
+
+                // 小圆点切换
+                bots.onclick = function (ev) {
+                    var ev = ev || window.event;
+                    let target = ev.target || ev.srcElement;
+                    if (target.nodeName.toLowerCase() == 'li') {
+                        for (let i = 0; i < bots.children.length; i++) {
+                            if (bots.children[i] === target) {
+                                index = i;
+                                console.log(index)
+                                break;
+                            }
+                        }
+                        changebots() // 切换下标
+                        list.style.left = ((index + 1) * -600) + 'px' // 切换轮播图
+                    }
+
+                }
+                // 自动轮播
+                function autoplay() {
+                    interval = setInterval(() => {
+                        animate(-600)
+                    }, 2000)
+                }
+
+                // 鼠标移入停止自动轮播
+                box.onmouseover = function () {
+                    isanimate = false
+                    console.log('in')
+                    clearInterval(interval)
+                }
+                //鼠标移出开始轮播
+                box.onmouseleave = function () {
+                    isanimate = true
+                    autoplay()
+                    console.log('out')
+                }
+                autoplay()
+            }
+        </script>
+        <!-- jQ版本的更通俗易懂(配上了index) -->
+        <!--<script src="./js/jquery3.3.1.js"></script> 
+            <script>
+            $(function () {
+
+                var index = 0; // 记录当前小圆点下标
+                var isanimate = true; // 是否自动播放
+                var interval; // 自动播放定时器
+                //初始化小圆点
+                for (let i = 0; i < 5; i++) {
+                    let li = $('<li></li>')
+                    $('#bots').append(li)
+                }
+                $('#bots li').first().addClass('active')
+                // 上一张
+                $('#pre').click(function () {
+                    index--;
+                    if (index < 0) {
+                        $('#navs').css('left', -3600)
+                        index = 4
+                    }
+                    manimate(index)
+                    changebots(index)
+                })
+                //下一张
+                $('#nex').click(function () {
+                    index++;
+                    if (index > 5) {
+                        $('#navs').css('left', -600)
+                        index = 1
+                    }
+                    manimate(index)
+                    changebots(index)
+                })
+                //小圆点切换
+                $('#bots').click(function (ev) {
+                    var ev = ev || window.event;
+                    let target = ev.target || ev.srcElement;
+                    if (target.nodeName.toLowerCase() == 'li') {
+                        for (let i = 0; i < 5; i++) {
+                            if ($('#bots')[0].children[i] === target) {
+                                index = i;
+                                console.log(index)
+                                break;
+                            }
+                        }
+                    }
+                    $('#navs').css('left', (index + 1) * -600)
+                    changebots(index)
+                })
+
+                // 切换动画效果
+                function manimate(i) {
+                    i += 1;
+                    // console.log(i)
+                    $('#navs').stop().animate({ left: -i * 600 }, 500)
+                }
+
+                // 切换圆点
+                function changebots(i) {
+                    if (i < 0) {
+                        i = 4
+                    } else if (i > 4) {
+                        i = 0
+                    }
+                    $('#bots li').eq(i).addClass('active').siblings().removeClass('active')
+
+                }
+
+                // 自动轮播
+                function autoplay() {
+
+                    interval = setInterval(() => {
+                        index++;
+                        if (index > 5) {
+                            $('#navs').css('left', -600)
+                            index = 1
+                        }
+                        changebots(index)
+                        manimate(index)
+                    }, 2000)
+                }
+
+                // 鼠标移入停止自动轮播
+                $('#box').mouseover(function () {
+                    console.log('in')
+                    clearInterval(interval)
+                })
+                //鼠标移出开始轮播
+                $('#box').mouseleave(function () {
+                    console.log('out')
+                    autoplay()
+                })
+                autoplay()
+
+            })
+        </script> -->
+</body>
+
+</html>
