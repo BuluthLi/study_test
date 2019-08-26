@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>触底分页加载测试</title>
+    <style>
+        *,
+        html,
+        body {
+
+            padding: 0;
+            margin: 0;
+            font-size: 10px;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+            width: 0;
+            height: 0;
+            color: transparent;
+        }
+
+        html,
+        body {
+            width: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
+            background: #f2f2f2;
+            overflow-y: auto;
+        }
+
+        img {
+            vertical-align: middle;
+        }
+
+
+        .wrapper {
+            width: 100%;
+            background: #f2f2f2;
+            height: auto;
+        }
+
+        .bonus-box {
+            width: 100%;
+            height: auto;
+            min-height: 86vh;
+            padding-bottom: 78px;
+            padding: 1px;
+        }
+
+        .bonus-item {
+            color: rgb(255, 68, 68);
+        }
+
+        .bonus-item-unuse {
+            color: rgb(101, 101, 101);
+        }
+
+        .bonus-item,
+        .bonus-item-unuse {
+            margin: 10px 25px 0 25px;
+            position: relative;
+        }
+
+        .bonus-item img,
+        .bonus-item-unuse img {
+            width: 100%;
+        }
+
+        .bonus-item-unuse .unuse-logo {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            right: 5%;
+            bottom: 6%;
+
+        }
+
+        .bonus-left {
+            position: absolute;
+            left: 5%;
+            top: 29%;
+            transform: translateY(-50%);
+            width: 45%;
+            text-align: left;
+            overflow: hidden;
+            height: 52%;
+        }
+
+        .bonus-left .bonus-title {
+            height: 65%;
+            width: 100%;
+            overflow: hidden;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+
+        }
+
+        .bonus-right .bonus-title {
+            height: 65%;
+            width: 100%;
+            overflow: hidden;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+
+        }
+
+
+        .bonus-title-intro {
+            font-size: 10px;
+        }
+
+        .bonus-right {
+            position: absolute;
+            right: 5%;
+            top: 29%;
+            transform: translateY(-50%);
+            width: 45%;
+            text-align: right;
+            overflow: hidden;
+            height: 52%;
+            position: absolute;
+
+        }
+
+        .bonus-original {
+            position: absolute;
+            left: 5%;
+            bottom: 16%;
+            color: rgb(101, 101, 101);
+            max-width: 190px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+        }
+
+        .bonus-item:nth-child(1) {
+            margin-top: 20px;
+        }
+
+        .bonus-use-btn {
+            position: absolute;
+            background: rgb(255, 68, 68);
+            font-size: 10px;
+            border-radius: 4px;
+            color: white;
+            padding: 5px 10px;
+            right: 5%;
+            bottom: 12%;
+
+        }
+
+
+        .get-more {
+            margin: 30px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: auto;
+            height: 18px;
+            font-size: 10px;
+            color: rgb(102, 102, 102);
+        }
+
+        .get-more-line {
+            width: 1px;
+            height: 18px;
+            margin: 0 18px;
+            background: rgb(153, 153, 153);
+        }
+
+        /* 规则详情 */
+        .rule-detail {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            z-index: 121;
+            top: 0;
+            left: 0;
+            padding: 24px 16px 34px 16px;
+            box-sizing: border-box;
+            background: #FF6E28;
+            display: none;
+        }
+
+        .rule-box {
+            overflow-y: auto;
+            width: 100%;
+            height: 100%;
+        }
+
+        .rule-block {
+            width: 100%;
+            background: white;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        .rule-title {
+            display: flex;
+            align-items: flex-end;
+            padding: 6px 20px 10px 20px;
+            position: relative;
+            border-bottom: 1px dotted #ff6e28;
+            color: rgb(255, 110, 40);
+            font-weight: bold;
+        }
+
+        .rule-title span {
+            font-size: 16px;
+            margin-right: 2px;
+        }
+
+        .rule-title:after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            z-index: 22;
+            bottom: -5px;
+            background: #ff6e28;
+            left: -5px;
+        }
+
+        .rule-title:before {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            z-index: 22;
+            bottom: -5px;
+            background: #ff6e28;
+            right: -5px;
+        }
+
+        .rule-text {
+            padding: 10px 20px 20px 30px;
+        }
+
+        .rule-text p {
+            display: block;
+            text-align: left;
+            font-size: 12px;
+            color: rgb(34, 34, 34);
+            margin-top: 10px;
+            position: relative;
+        }
+
+        .rule-text .text-item:after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #ff6e28;
+            border-radius: 50%;
+            position: absolute;
+            top: 6px;
+            left: -12px;
+        }
+
+        .get-more-left,
+        .get-more-right,
+        .get-moreuse-left {
+            cursor: pointer;
+        }
+
+        /* 媒体查询 */
+        @media screen and (max-width:360px) {
+            .bonus-box {
+                width: 100%;
+                height: auto;
+                min-height: 82vh;
+                padding-bottom: 78px;
+                padding: 1px;
+            }
+
+            .bonus-original {
+                position: absolute;
+                left: 5%;
+                bottom: 16%;
+                color: rgb(101, 101, 101);
+                max-width: 170px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="bonus-box">
+            <!-- 少了一个盒子包住内容，盒子高度auto,由数据生成内容自动撑起，以便计算数据填充的dom高度，做分页加载
+            （因为bonus-box有一个min-height，是不能体现动态dom的高度的，所以加一个父盒子包住数据填充的dom） -->
+            <!-- 未使用 -->
+            <!-- <div class="bonus-item">
+                <img src="__CDN__/images/meet/red/unuse.png" alt="">
+                <div class="bonus-left">
+                    <div class="bonus-title"><b style="font-size:36px;">50</b><span style="margin-top: 10%;">积分</span>
+                    </div>
+                    <div class="bonus-title-intro">-美家红包-</div>
+                </div>
+                <div class="bonus-right">
+                    <div class="bonus-title"><b style=" font-size:18px;">精选美家红包</b></div>
+                    <div class="bonus-title-intro" style="color:rgb(101,101,101)">.2019-05-14到期</div>
+                </div>
+                <div class="bonus-original">·美家获尺并量尺五星好评额外奖励</div>
+                <div class="bonus-use-btn">立即使用</div>
+            </div> -->
+            <!-- 已使用 -->
+            <!-- <div class="bonus-item-unuse">
+                <img src="__CDN__/images/meet/red/unuse.png" alt="">
+                <img src="__CDN__/images/meet/red/unuse-logo.png" alt="" class="unuse-logo">
+                <div class="bonus-left">
+                    <div class="bonus-title"><b style="font-size:36px;">50</b><span style="margin-top: 10%;">积分</span>
+                    </div>
+                    <div class="bonus-title-intro">-美家红包-</div>
+                </div>
+                <div class="bonus-right">
+                    <div class="bonus-title"><b style=" font-size:18px;">精选美家红包</b></div>
+                    <div class="bonus-title-intro" style="color:rgb(101,101,101)">.2019-05-14到期</div>
+                </div>
+                <div class="bonus-original">·美家获尺并量尺五星好评额外奖励</div>
+            </div> -->
+
+        </div>
+        <div class="get-more">
+            <div class="get-more-left">查看历史红包</div>
+            <div class="get-more-line"></div>
+            <div class="get-more-right">红包说明</div>
+        </div>
+        <div class="rule-detail">
+            <div class="rule-box">
+
+
+                <div class="rule-block">
+                    <div class="rule-title"><span>Q</span> 1 怎么获得红包？</div>
+                    <div class="rule-text">
+                        <p class="text-item">进入设计软件-右上角“制作美家”，分享一篇美家作品即可获得红包发放机会；</p>
+                        <p class="text-item">抢微信朋友分享的红包获得；</p>
+                    </div>
+                </div>
+                <div class="rule-block">
+                    <div class="rule-title"><span>Q</span> 2 红包如何使用？</div>
+                    <div class="rule-text">
+                        <p class="text-item">红包分为「立即到账」与「写美家/获尺使用」两种；</p>
+                        <p class="text-item">「美家积分红包」为立即到账，领取即获得积分；</p>
+                        <p class="text-item">「分享美家红包」在设计软件-分享美家，分享一篇新的美家即可使用，行为发生后，系统自动使用；</p>
+                        <p class="text-item">若分享美家被推荐为精选，则可使用「精选美家红包」，行为发生后，系统自动使用；</p>
+                        <p class="text-item">通过美家名片/美家作品，被客户预约获尺，并获得量尺五星好评，即可使用「美家获尺红包」，行为发生后，系统自动使用；</p>
+                        <p class="text-item">若有多个同类型红包，系统自动使用最快到期的红包；</p>
+                        <p class="text-item">每次行为仅限使用一张红包，系统自动使用</p>
+                    </div>
+                </div>
+                <div class="rule-block">
+                    <div class="rule-title"><span>Q</span> 3 红包领取规则是什么？</div>
+                    <div class="rule-text">
+                        <p class="text-item">同一个设计师账号，一天限领取5个；</p>
+                        <p class="text-item">每个红包的有效期限为7天。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="__CDN__/js/jquery-2.0.3.min.js"></script>
+    <script>
+        let page = 1, useHtml = ''; unuseHtml = '', loading = false, s = null, type = 0;
+
+        // 初次执行
+        getPersonalBonus(type, page);
+        function getPersonalBonus(type, page) {
+            type = type ? type : 0;
+            loading = true;
+            $.ajax({
+                type: "POST",
+                url: "https://shr.yfway.com/index.php?s=/Home/RedPage/get_my_red",
+                data: {
+                    type: type,
+                    page: page
+                },
+                dataType: 'json',
+                success: function (res) {
+                    loading = false;
+                    if (res.status != 1) {
+                        return;
+                    }
+
+                    if (res.data.length == 0) {
+                        s = s ? clearInterval(s) : null;
+                    }
+
+
+                    if (type == 0) {
+                        for (let i = 0; i < data.length; i++) {
+                            useHtml += ` <div class="bonus-item">
+                <img src="__CDN__/images/meet/red/unuse.png" alt="">
+                <div class="bonus-left">
+                    <div class="bonus-title"><b style="font-size:36px;">`+ data[i].score + `</b><span style="margin-top: 10%;">积分</span>
+                    </div>
+                    <div class="bonus-title-intro">-美家红包-</div>
+                </div>
+                <div class="bonus-right">
+                    <div class="bonus-title"><b style=" font-size:18px;">`+ data[i].name + `</b></div>
+                    <div class="bonus-title-intro" style="color:rgb(101,101,101)">·`+ data[i].expire_time + `到期</div>
+                </div>
+                <div class="bonus-original">·`+ data[i].desc + `</div>
+                <div class="bonus-use-btn">立即使用</div>
+            </div> `;
+                        }
+                        $('.bonus-box').html(useHtml);
+                    } else if (type == 1) {
+                        for (let i = 0; i < data.length; i++) {
+                            unuseHtml += `<div class="bonus-item-unuse">
+                <img src="__CDN__/images/meet/red/unuse.png" alt="">
+                <img src="__CDN__/images/meet/red/unuse-logo.png" alt="" class="unuse-logo">
+                <div class="bonus-left">
+                    <div class="bonus-title"><b style="font-size:36px;">`+ data[i].score + `</b><span style="margin-top: 10%;">积分</span>
+                    </div>
+                    <div class="bonus-title-intro">-美家红包-</div>
+                </div>
+                <div class="bonus-right">
+                    <div class="bonus-title"><b style=" font-size:18px;">`+ data[i].name + `</b></div>
+                    <div class="bonus-title-intro" style="color:rgb(101,101,101)">·`+ data[i].expire_time + `到期</div>
+                </div>
+                <div class="bonus-original">·`+ data[i].desc + `</div>
+            </div>`;
+                        }
+                        $('.bonus-box').html(unuseHtml);
+                    }
+                    s = setInterval(function () {
+                        let flag = reachBottom();
+                        console.log(flag);
+                        if (flag && !loading) {
+                            page++;
+                            console.log('触底了');
+                            getPersonalBonus(type, page);
+                        }
+                    }, 1000);
+
+                }
+            });
+        }
+
+
+
+        $(document).on('click', '.get-more-left', function () {
+            page == 1;
+            type = 1;
+            useHtml = '';
+            $(window).scrollTop(0);
+            getPersonalBonus(type, page);
+            $('.get-more').html(` <div class="get-moreuse-left">查看未使用红包</div>
+            <div class="get-more-line"></div>
+            <div class="get-more-right">红包说明</div>`)
+        })
+        $(document).on('click', '.get-moreuse-left', function () {
+            page == 1;
+            type = 0;
+            unuseHtml = '';
+            $(window).scrollTop(0);
+            getPersonalBonus(type, page);
+            $('.get-more').html(` <div class="get-more-left">查看历史红包</div>
+            <div class="get-more-line"></div>
+            <div class="get-more-right">红包说明</div>`)
+        })
+        $(document).on('click', '.get-more-right', function () {
+            $('.rule-detail').show();
+        })
+        function reachBottom() {
+            let target = document.querySelector(".bonus-box");
+            let trueHeight = parseInt(window.getComputedStyle(target, null).height);
+            let pageHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, document.body.offsetHeight,
+                document.documentElement.offsetHeight, trueHeight);
+            let viewportHeight = window.innerHeight ||
+                document.documentElement.clientHeight ||
+                document.body.clientHeight || 0;
+            let scrollHeight = window.pageYOffset ||
+                document.documentElement.scrollTop ||
+                document.body.scrollTop || 0;
+            console.log(pageHeight, viewportHeight, scrollHeight);
+            return pageHeight - viewportHeight - scrollHeight < 20;
+        }
+    </script>
+</body>
+
+</html>

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>turn page</title>
+    <title>触底分页加载总结</title>
     <style>
         * {
             padding: 0;
@@ -115,9 +115,10 @@
         // ---------------------------------------------完整案例------------------------------------------------------------
         // -----------------------------------------------------------------------------------------------------------------
         // type为0是正常页面的整体滚动，type为1是局部滚动分页（此处是type为0，type为1如同上面所述）
+        // 以下是type为0的触底分页（不传参数）
         let target = document.getElementsByClassName('inner-box')[0];
         let s = setInterval(() => {
-            reachBottom(target);
+            reachBottom();
         }, 1000);
         function reachBottom(target, type) {
             type = type ? type : 0;
@@ -132,6 +133,20 @@
             if (pageHeight - viewportHeight - scrollHeight < 20) {
                 console.log('触底了');
             }
+            return pageHeight - viewportHeight - scrollHeight < 20;
+        }
+        // -----------------------------------------------------------------------------------------------------------------
+        // ---------------------------------------------美家分享红包实战------------------------------------------------------------
+        // -----------------------------------------------------------------------------------------------------------------
+        function reachBottom(target, type) {
+            type = type ? type : 0;
+            target = target ? target : document.getElementsByTagName('html')[0];
+            let viewportHeight = window.screen.availHeight || window.screen.availHeight || document.documentElement.clientHeight;
+            var scrollHeight = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;;
+            let pageHeight = parseInt(window.getComputedStyle(target, null).height.replace(/px/g, ''));
+            // alert("" + pageHeight + "/" + viewportHeight + "/" + scrollHeight);
+            // 页面自然形式的触底
+            if (scrollHeight <= 0) return false;
             return pageHeight - viewportHeight - scrollHeight < 20;
         }
     </script>

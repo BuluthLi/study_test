@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- 禁止用户双击放大 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>弹出特效和弹出特效延伸思考</title>
+    <style>
+        /* transform是属性的变化，不能存在dom元素的消失和出现（dom不见了，何来属性变化，使用transfrom实现的效果，其实元素一直都在，只不过用户不可见）；animation是动画，可以结合dom元素的消失和出现使用 */
+        .inner-box {
+            display: none;
+            animation: slidetest 0.5s ease;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes slidetest {
+            0% {
+                margin-top: -10px;
+
+            }
+
+            100% {
+                margin-top: 5px;
+
+            }
+        }
+
+        .box2 {
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            overflow: hidden;
+        }
+
+        .inner-box2 {
+            display: none;
+            animation: slidetest2 0.5s ease;
+            animation-fill-mode: forwards;
+            position: absolute;
+            z-index: 99;
+        }
+
+        @keyframes slidetest2 {
+            0% {
+                top: -100px;
+            }
+
+            100% {
+                top: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 正常的文档流模式实现下拉框的基础特效 -->
+    <!-- <div class="box">
+        <div class="title">我是标题，点我弹出下拉框</div>
+        <div class="inner-box">
+            <div class="item">我是子目录1</div>
+            <div class="item">我是子目录2</div>
+            <div class="item">我是子目录3</div>
+            <div class="item">我是子目录4</div>
+            <div class="item">我是子目录5</div>
+        </div>
+        <div class="side">我是固定底部目录</div>
+    </div> -->
+    <!-- ---------------------------------------------------------------------------- -->
+    <!-- 脱离文档流的下拉框基础特效实现,如果继续使用margin-top类似属性,可以实现效果，对innerbox使用绝对定位，父元素的大小无法控制，overflow:visiable不好使用，即使用bottom类似属性达到预期效果，需要预先留下innerbox的位置 -->
+    <div class="box2">
+        <div class="title2">我是标题，点我弹出下拉框</div>
+        <div class="inner-box2">
+            <div class="item2">我是子目录1</div>
+            <div class="item2">我是子目录2</div>
+            <div class="item2">我是子目录3</div>
+            <div class="item2">我是子目录4</div>
+            <div class="item2">我是子目录5</div>
+        </div>
+        <div class="side2">我是固定底部目录</div>
+    </div>
+    <script src="./js/jquery3.3.1.js"></script>
+    <script>
+        $(document).on('click', '.title', function () {
+            $('.inner-box').show();
+        })
+    </script>
+    <script>
+        $(document).on('click', '.title2', function () {
+            $('.inner-box2').show();
+        })
+    </script>
+</body>
+
+</html>

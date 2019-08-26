@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>常见小技巧</title>
+    <style>
+        body {}
+    </style>
 </head>
 
 <body>
@@ -40,28 +43,80 @@
         // 使用RegExp.$1，必须使用一次正则，exec或者test(正则方法),或者match(字符串方法)
         // console.log(RegExp.$1)//返回正则中第第一个子表达式的结果。
         // console.log(RegExp.$2)//返回正则中第二个子表达式的结果。
-        console.log('..........................微任务宏任务（https://segmentfault.com/a/1190000017224799?utm_source=tag-newest）.......................................');
-        async function async1() {
-            console.log('async1 start')
-            await async2()
-            console.log('async1 end')
+        console.log('--------------------------------------------------------');
+        // 使用rem
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 750 * 100 + 'px';
+        console.log('--------------------------------------------------------');
+        console.log('--------------------------浅拷贝和深拷贝问题------------------------------');
+        function deepClone(val) {
+            if (isPrototypeObject(val)) {
+                let obj = {};
+                for (let key in val) {
+                    obj[key] = deepClone(val[key])
+                }
+            } else if (Array.isArray(val)) {
+                return val.slice();
+            } else {
+                return val;
+            }
+            function isPrototypeObject(obj) {
+                return Object.prototype.toString.call(obj) === "[Object Object]";
+            }
         }
-        async function async2() {
-            console.log('async2')
-        }
-        // console.log('script start')
-        setTimeout(function () {
-            console.log('setTimeout')
-        }, 0)
-        console.log('script start')
-        async1();
-        new Promise(function (resolve) {
-            console.log('promise1')
-            resolve();
-        }).then(function () {
-            console.log('promise2')
-        })
-        console.log('script end')
+        console.log('--------------------------数据劫持(对object的相关属性数据劫持，监听，读取修改数据绑定到getter和setter)问题------------------------------');
+
+        //         < !DOCTYPE html >
+        //             <html>
+        //                 <head>
+        //                     <meta charset="utf-8">
+        //                         <title>动态数据绑定（一）</title>
+        // </head>
+        //                     <body>
+        //                         <script>
+        // var data = {
+        //     user: {
+        //         name: 'xiaoming',
+        //         age: 18,
+        //         occupation: 'frontend'
+        //     },
+        //     address: {
+        //         city: 'shaoguan'
+        //     }
+        // };
+        // function Observer(data) {
+        //     this.data = data;
+        //     this.walk(data);
+        // }
+        // Observer.prototype = {
+        //     walk: function (obj) {
+        //         var value,
+        //             key;
+        //         for (key in obj) {
+        //             if (obj.hasOwnProperty(key)) {
+        //                 value = obj[key];
+        //                 if (typeof value === 'object') {
+        //                     new Observer(value);
+        //                 }
+        //                 this.convert(key, value);
+        //             }
+        //         }
+        //     },
+        //     convert: function (key, value) {
+        //         Object.defineProperty(this.data, key, {
+        //             get: function () {
+        //                 console.log("你访问了" + key);
+        //                 return value;
+        //             },
+        //             set: function (newValue) {
+        //                 value = newValue;
+        //                 console.log('你设置了' + key + '=' + value);
+        //             }
+        //         });
+        //     }
+        // }
+        // var example = new Observer(data);
+        console.log('---------------------------------------绘家小程序------------------------------------------');
+        // 厉害的css属性之pointer-events:https://www.html.cn/book/css/properties/user-interface/pointer-events.htm
     </script>
 </body>
 
