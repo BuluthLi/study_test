@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>OOP</title>
+</head>
+
+<body>
+    <script>
+        console.log("===================================对象===============================================");
+        var person1 = new Object();
+        person1.id = 1;
+        person1.name = "Dongdong";
+        let person2 = {
+            id: 2, name: 'Bob'
+        }
+        console.log(person1, person2);
+        console.log("=================================工厂模式=============================================");
+        let createPerson = function (name, age) {
+            let o = new Object();
+            o.name = name;
+            o.age = age;
+            o.getName = function () {
+                return this.name;
+            }
+            return o;
+        }
+        let bob = createPerson(18, 'Bob');
+        let dongdong = createPerson(25, 'dongdong');
+        console.log(bob, dongdong.getName());
+        console.log(bob instanceof createPerson);
+        console.log("=================================工厂模式问题一：无法识别对象实例类型(new操作符做了中间工作)=============================================");
+        let Person = function (name, age) {
+            this.name = name;
+            this.age = age;
+            this.getName = function () {
+                return this.name;
+            }
+        }
+        let bob2 = new Person(666666666, 'Bob2');
+        let dongdong2 = new Person(25, 'dongdong');
+        console.log(bob2, dongdong2.getName());
+        console.log(bob2 instanceof Person);
+        console.log("=================================工厂模式问题二：多个实例重复生命getName方法，造成空间浪费：将共用方法挂载到该构造函数的原型上=============================================");
+        function CeshiPerson(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        CeshiPerson.prototype.getName = function () {
+            return this.name;
+        }
+        var p1 = new CeshiPerson('tim', 10);
+        var p2 = new CeshiPerson('jak', 22);
+        console.log(p1.getName === p2.getName);
+        // in的这种特性最常用的场景之一，就是判断当前页面是否在移动端打开。
+        let isMobile = 'ontouchstart' in document;
+        console.log(isMobile);
+        console.log("=================================关于继承=============================================");
+        function Parent(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        Parent.prototype.getName = function () {
+            return this.name;
+        }
+        // 构造函数的继承
+        function Child(name, age, job) {
+            Parent.call(this, name, age);
+            this.job = job;
+        }
+        // 原型的继承，加入到原型链
+        // 继承原型
+        Child.prototype = new Parent('jack', 20);
+
+        // 添加更多方法
+        Child.prototype.getLive = function () { }
+        console.log("=================================js对象实践(index_drag.html)=============================================");
+        // 由于修改一个元素top/left值会引起页面重绘，而translate不会，因此从性能优化上来判断，我们会优先使用translate属性。
+        // 获取当前浏览器支持的transform兼容写法
+        function getTransform() {
+            var transform = '',
+                divStyle = document.createElement('div').style,
+                // 可能涉及到的几种兼容性写法，通过循环找出浏览器识别的那一个
+                transformArr = ['transform', 'webkitTransform', 'MozTransform', 'msTransform', 'OTransform'],
+
+                i = 0,
+                len = transformArr.length;
+
+            for (; i < len; i++) {
+                if (transformArr[i] in divStyle) {
+                    // 找到之后立即返回，结束函数
+                    return transform = transformArr[i];
+                }
+            }
+
+            // 如果没有找到，就直接返回空字符串
+            return transform;
+        }
+        let transform = getTransform();
+        console.log(transform);
+        console.log("=================================js的事件机制=============================================");
+        // 任务队列又分为macro-task（宏任务）与micro-task（微任务），在最新标准中，它们被分别称为task与jobs。
+        // macro-task大概包括：script(整体代码), setTimeout, setInterval, setImmediate, I/O, UI rendering。
+        // micro-task大概包括: process.nextTick, Promise, Object.observe(已废弃), MutationObserver(html5新特性)
+        setTimeout(function () {
+            console.log('timeout1');
+        })
+
+        new Promise(function (resolve) {
+            console.log('promise1');
+            for (var i = 0; i < 1000; i++) {
+                i == 99 && resolve();
+            }
+            console.log('promise2');
+        }).then(function () {
+            console.log('then1');
+        })
+
+        console.log('global1');
+    </script>
+
+</body>
+
+</html>

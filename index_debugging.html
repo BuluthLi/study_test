@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>breakpoint debugging</title>
+</head>
+
+<body>
+    <div class="hai"></div>
+    <script>
+        // ---------------------------------------Demo1---------------------------------------------------
+        // var fn;
+        // function foo() {
+        //     var a = 2;
+        //     function baz() {
+        //         console.log(a);
+        //     }
+        //     fn = baz;
+        // }
+        // function bar() {
+        //     fn();
+        // }
+
+        // foo();
+        // bar(); // 2
+        // ---------------------------------------Demo2---------------------------------------------------
+        // 我们可以确定闭包的形成需要两个条件。
+        // 在函数内部创建新的函数；
+        // 新的函数在执行时，访问了函数的变量对象；
+        // var fn;
+        // var m = 20;
+        // function foo() {
+        //     var a = 2;
+        //     function baz(a) {
+        //         console.log(a);
+        //     }
+        //     fn = baz;
+        // }
+        // function bar() {
+        //     fn(m);
+        // }
+
+        // foo();
+        // bar(); // 20
+        // ---------------------------------------Demo2---------------------------------------------------
+        (function () {
+
+            var a = 10;
+            var b = 20;
+
+            var test = {
+                m: 20,
+                add: function (x) {
+                    return a + x;
+                },
+                sum: function () {
+                    return a + b + this.m;
+                },
+                mark: function (k, j) {
+                    return k + j;
+                }
+            }
+
+            window.test = test;
+
+        })();
+
+        test.add(100);
+        test.sum();
+        test.mark();
+
+        var _mark = test.mark;
+        _mark();
+    </script>
+</body>
+
+</html>

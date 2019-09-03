@@ -117,6 +117,196 @@
         // var example = new Observer(data);
         console.log('---------------------------------------绘家小程序------------------------------------------');
         // 厉害的css属性之pointer-events:https://www.html.cn/book/css/properties/user-interface/pointer-events.htm
+        // 绘家正则
+        //str:<img alt="" src="https://dpfoss.yfway.com/lds/shop_resources/images/2019/04/29/1430361459.jpg?x-oss-process=image/resize,w_750/auto-orient,1/quality,q_50/watermark,image_bGRzL1B1YmxpYy9oai1sb2dvLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE1MA==,x_20,y_10,t_50" style="height:1001px; width:1000px" /><img alt="" src="https://dpfoss.yfway.com/lds/shop_resources/images/2019/04/29/1430452196.jpg?x-oss-process=image/resize,w_750/auto-orient,1/quality,q_50/watermark,image_bGRzL1B1YmxpYy9oai1sb2dvLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE1MA==,x_20,y_10,t_50" /><img alt="" src="https://dpfoss.yfway.com/lds/shop_resources/images/2019/04/29/1430554436.jpg?x-oss-process=image/resize,w_750/auto-orient,1/quality,q_50/watermark,image_bGRzL1B1YmxpYy9oai1sb2dvLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE1MA==,x_20,y_10,t_50" style="height:973px; width:1000px" /><img alt="" src="https://dpfoss.yfway.com/lds/shop_resources/images/2019/04/29/1431111188.jpg?x-oss-process=image/resize,w_750/auto-orient,1/quality,q_50/watermark,image_bGRzL1B1YmxpYy9oai1sb2dvLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE1MA==,x_20,y_10,t_50" style="height:912px; width:1000px" /><img alt="" src="https://dpfoss.yfway.com/lds/shop_resources/images/2019/04/29/1431211207.jpg?x-oss-process=image/resize,w_750/auto-orient,1/quality,q_50/watermark,image_bGRzL1B1YmxpYy9oai1sb2dvLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE1MA==,x_20,y_10,t_50" style="height:912px; width:1000px" /><img alt="" src="https://dpfoss.yfway.com/lds/shop_resources/images/2019/04/29/1431295827.jpg?x-oss-process=image/resize,w_750/auto-orient,1/quality,q_50/watermark,image_bGRzL1B1YmxpYy9oai1sb2dvLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE1MA==,x_20,y_10,t_50" style="height:613px; width:1000px" /><img alt="" src="https://dpfoss.yfway.com/lds/shop_resources/images/2019/04/29/1431385124.jpg?x-oss-process=image/resize,w_750/auto-orient,1/quality,q_50/watermark,image_bGRzL1B1YmxpYy9oai1sb2dvLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE1MA==,x_20,y_10,t_50" style="height:1000px; width:1000px" /><img alt="" src="https://dpfoss.yfway.com/lds/shop_resources/images/2019/04/29/1431478102.jpg?x-oss-process=image/resize,w_750/auto-orient,1/quality,q_50/watermark,image_bGRzL1B1YmxpYy9oai1sb2dvLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE1MA==,x_20,y_10,t_50" style="height:659px; width:1000px" /><img alt="" src="https://dpfoss.yfway.com/lds/shop_resources/images/2019/04/29/1431566932.jpg?x-oss-process=image/resize,w_750/auto-orient,1/quality,q_50/watermark,image_bGRzL1B1YmxpYy9oai1sb2dvLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE1MA==,x_20,y_10,t_50" style="height:822px; width:1000px" /><img alt="" src="https://dpfoss.yfway.com/lds/shop_resources/images/2019/04/29/1432063425.jpg?x-oss-process=image/resize,w_750/auto-orient,1/quality,q_50/watermark,image_bGRzL1B1YmxpYy9oai1sb2dvLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE1MA==,x_20,y_10,t_50" style="height:580px; width:1001px" /><img alt="" src="https://dpfoss.yfway.com/lds/shop_resources/images/2019/04/29/1433375908.jpg?x-oss-process=image/resize,w_750/auto-orient,1/quality,q_50/watermark,image_bGRzL1B1YmxpYy9oai1sb2dvLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE1MA==,x_20,y_10,t_50" style="height:580px; width:1001px" /><img alt="" src="https://dpfoss.yfway.com/lds/shop_resources/images/2019/04/29/1433564816.jpg?x-oss-process=image/resize,w_750/auto-orient,1/quality,q_50/watermark,image_bGRzL1B1YmxpYy9oai1sb2dvLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE1MA==,x_20,y_10,t_50" style="height:580px; width:1001px" /><img alt="" src="https://dpfoss.yfway.com/lds/shop_resources/images/2019/04/29/1434071985.jpg?x-oss-process=image/resize,w_750/auto-orient,1/quality,q_50/watermark,image_bGRzL1B1YmxpYy9oai1sb2dvLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE1MA==,x_20,y_10,t_50" style="height:732px; width:1001px" /><img alt="" src="https://dpfoss.yfway.com/lds/shop_resources/images/2019/04/29/1434179690.jpg?x-oss-process=image/resize,w_750/auto-orient,1/quality,q_50/watermark,image_bGRzL1B1YmxpYy9oai1sb2dvLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE1MA==,x_20,y_10,t_50" style="height:747px; width:1000px" /><img alt="" src="https://dpfoss.yfway.com/lds/shop_resources/images/2019/04/29/1434305558.jpg?x-oss-process=image/resize,w_750/auto-orient,1/quality,q_50/watermark,image_bGRzL1B1YmxpYy9oai1sb2dvLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE1MA==,x_20,y_10,t_50" style="height:613px; width:1000px" /><img alt="" src="https://dpfoss.yfway.com/lds/shop_resources/images/2019/04/29/1434398318.jpg?x-oss-process=image/resize,w_750/auto-orient,1/quality,q_50/watermark,image_bGRzL1B1YmxpYy9oai1sb2dvLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE1MA==,x_20,y_10,t_50" style="height:643px; width:1000px" /><img alt="" src="https://dpfoss.yfway.com/lds/shop_resources/images/2019/04/29/1434471304.jpg?x-oss-process=image/resize,w_750/auto-orient,1/quality,q_50/watermark,image_bGRzL1B1YmxpYy9oai1sb2dvLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE1MA==,x_20,y_10,t_50" /><img alt="" src="https://dpfoss.yfway.com/lds/shop_resources/images/2019/04/29/1434559601.jpg?x-oss-process=image/resize,w_750/auto-orient,1/quality,q_50/watermark,image_bGRzL1B1YmxpYy9oai1sb2dvLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE1MA==,x_20,y_10,t_50" style="height:1001px; width:1001px" /><img alt="" src="https://dpfoss.yfway.com/lds/shop_resources/images/2019/04/29/1435122206.JPG?x-oss-process=image/resize,w_750/auto-orient,1/quality,q_50/watermark,image_bGRzL1B1YmxpYy9oai1sb2dvLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE1MA==,x_20,y_10,t_50" style="height:797px; width:1000px" /><img alt="" src="https://dpfoss.yfway.com/lds/shop_resources/images/2019/04/29/1435213408.jpg?x-oss-process=image/resize,w_750/auto-orient,1/quality,q_50/watermark,image_bGRzL1B1YmxpYy9oai1sb2dvLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE1MA==,x_20,y_10,t_50" style="height:979px; width:1000px" /><img alt="" src="https://dpfoss.yfway.com/lds/shop_resources/images/2019/04/29/1435292232.jpg?x-oss-process=image/resize,w_750/auto-orient,1/quality,q_50/watermark,image_bGRzL1B1YmxpYy9oai1sb2dvLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE1MA==,x_20,y_10,t_50" style="height:979px; width:1000px" />
+        var reg = new RegExp('<p>(.*)</p>'); //正则对象形式
+        // reg.test(goodsDetail.contentImgSrc);
+        // console.log(/<p>(.*)<\/p>/.test(goodsDetail.contentImgSrc));//字符串形式
+        // goodsDetail.contentImgSrc = RegExp.$1;
+
+        // -------------------------------------在一句话英文中匹配一个hi的单词--------------------------------------------------------------------
+        var str = 'Hi RegExp I love you so much Hi Hi hi';
+        var reg = new RegExp("\\bhi\\b", "gi");//g是一个修饰符，表示全局匹配。\b是一个元字符，代表单词边界，匹配单词的开头和结尾。
+        //直接量语法:
+        reg2 = /\bhi\b/gi;
+        console.log(str.match(reg2));//['hi','hi','hi','hi']
+        //升级
+        //匹配hi后面不远处跟着一个lucy
+        var strlc = /\bhi\b.*\blucy\b/;
+        var luch = 'hi welcome to beijing lucy!!!';
+        console.log(luch.match(strlc));
+
+        // -------------------------------------常见代码题目理解--------------------------------------------------------------------
+        console.log('-------------------------------------常见代码题目理解--------------------------------------------------------------------');
+        for (var i = 0; i < 10; i++) {
+            setTimeout(() => {
+                console.log(i);
+            }, 1000)
+        }
+        //上面的reslut:10个10
+        for (var i = 0; i < 10; i++) {
+            ((i) => {
+                setTimeout(() => {
+                    console.log(i);
+                }, 1000)
+            })(i)
+        }
+        //上面的reslut:0 1 2 3 4 5 6 7 8 9
+        for (let i = 0; i < 10; i++) {
+            setTimeout(() => {
+                console.log(i);
+            }, 1000)
+        }
+        //上面的reslut:0 1 2 3 4 5 6 7 8 9
+        for (var i = 0; i < 10; i++) {
+            setTimeout((i) => {
+                console.log(i);
+            }, 1000, i)
+        }
+        //上面的reslut:0 1 2 3 4 5 6 7 8 9
+        var b = 10;
+        (function b() {
+            b = 20;
+            console.log(b);
+        })();
+        //上面的result:ƒ b() {
+        //                  b = 20;
+        //                  console.log(b);
+        //              }
+        var a = { n: 1 };
+        var b = a;
+        a.x = a = { n: 2 };
+        console.log(a, b)
+        console.log(a.x)
+        console.log(b.x)
+        //上面的result:ƒ b() {
+        console.log('-------------------------------------监测当前环境是否是移动端--------------------------------------------------------------------');
+        // in的这种特性最常用的场景之一，就是判断当前页面是否在移动端打开。
+        let isMobile = 'ontouchstart' in document;
+        console.log(isMobile);
+        console.log("=================================js的事件机制=============================================");
+        // 任务队列又分为macro-task（宏任务）与micro-task（微任务），在最新标准中，它们被分别称为task与jobs。
+        // macro-task大概包括：script(整体代码), setTimeout, setInterval, setImmediate, I/O, UI rendering。
+        // micro-task大概包括: process.nextTick, Promise(代表异步？), Object.observe(已废弃), MutationObserver(html5新特性)
+        setTimeout(function () {
+            console.log('timeout1');
+        })
+
+        new Promise(function (resolve) {
+            console.log('promise1');
+            for (var i = 0; i < 1000; i++) {
+                i == 99 && resolve();
+            }
+            console.log('promise2');
+        }).then(function () {
+            console.log('then1');
+        })
+
+        console.log('global1');
+        console.log("=================================Promise的使用S=============================================");
+        var url = 'https://hq.tigerbrokers.com/fundamental/finance_calendar/getType/2017-02-26/2017-06-10';
+
+        // 使用promise封装一个get请求的方法
+        function getJSON(url) {
+            return new Promise(function (resolve, reject) {
+                var XHR = new XMLHttpRequest();
+                XHR.open('GET', url, true);
+                XHR.send();
+
+                XHR.onreadystatechange = function () {
+                    if (XHR.readyState == 4) {
+                        if (XHR.status == 200) {
+                            try {
+                                var response = JSON.parse(XHR.responseText);
+                                resolve(response);
+                            } catch (e) {
+                                reject(e);
+                            }
+                        } else {
+                            reject(new Error(XHR.statusText));
+                        }
+                    }
+                }
+            })
+        }
+
+        getJSON(url).then(resp => console.log(resp));
+        //当有一个ajax请求，它的参数需要另外2个甚至更多请求都有返回结果之后才能确定，那么这个时候，就需要用到Promise.all来帮助我们应对这个场景。
+        // Promise.all接收一个Promise对象组成的数组作为参数，当这个数组所有的Promise对象状态都变成resolved或者rejected的时候，它才会去调用then方法。
+        // Promise.race同上，只不过数组中任一个状态变成resolved或者rejected的时候，它就会去调用then方法
+        var url = 'https://hq.tigerbrokers.com/fundamental/finance_calendar/getType/2017-02-26/2017-06-10';
+        var url1 = 'https://hq.tigerbrokers.com/fundamental/finance_calendar/getType/2017-03-26/2017-06-10';
+
+        function renderAll() {
+            return Promise.all([getJSON(url), getJSON(url1)]);
+        }
+
+        renderAll().then(function (value) {
+            // 建议大家在浏览器中看看这里的value值
+            console.log(value);
+        })
+        console.log("=================================Promise的使用E=============================================");
+        console.log("=================================ES6基础知识合集S=============================================");
+        // 与var不同，新的变量声明方式let,const带来了一些不一样的特性，其中最重要的两个特性就是提供了块级作用域与不再具备变量提升
+        {
+            let aaa = 20;
+        }
+        console.log(aaa);  // aaa is not defined
+        // 以上会被编译成
+        {
+            let _aaa = 20;
+        }
+        console.log(aaa);  // aaa is not defined
+        // es6不存在变量提升，当然，你的代码编译成为了ES5之后，仍然会存在变量提升
+        // ES5
+        console.log(bbb);   // undefined
+        var bbb = 20;
+
+        // ES6
+        console.log(ccc); // a is not defined
+        let ccc = 20;
+
+        // 箭头函数
+        // 一个至关重要的一点，那就是箭头函数中，没有this。如果你在箭头函数中使用了this，那么该this一定就是外层的this
+        // 在ES6中，会默认采用严格模式，因此this也不会自动指向window对象了，而箭头函数本身并没有this，因此this就只能是undefined，这一点，在使用的时候，一定要慎重慎重再慎重，不然踩了坑你都不知道自己错在哪！这种情况，如果你还想用this，就不要用使用箭头函数的写法。
+        var person1 = {
+            name: 'tom',
+            getName: function () {
+                return this.name;
+            }
+        }
+
+        // 我们试图用ES6的写法来重构上面的对象
+        const person2 = {
+            name: 'tom',
+            getName: () => this.name
+        }
+
+        // 但是编译结果却是
+        var person3 = {
+            name: 'tom',
+            getName: function getName() {
+                return undefined.name;
+            }
+        };
+        // 模板字符串
+        const a_ = 20;
+        const b_ = 30;
+        const string = `${a_}+${b_}=${a_ + b_}`;
+
+        // 析构，字面量，class等很重要的知识，详解见https://www.jianshu.com/p/cfb0893c34f1
+        // 在ant-design的源码实现中，就大量使用了这种方式来拼接当前元素的className，例如:
+        let alertCls = classNames(prefixCls, {
+            [`${prefixCls}-${type}`]: true,
+            [`${prefixCls}-close`]: !this.state.closing,
+            [`${prefixCls}-with-description`]: !!description,
+            [`${prefixCls}-no-icon`]: !showIcon,
+            [`${prefixCls}-banner`]: !!banner,
+        }, className);
+
+
+        console.log("=================================ES6基础知识合集E=============================================");
+
     </script>
 </body>
 

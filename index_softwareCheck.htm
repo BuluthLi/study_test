@@ -45,7 +45,7 @@
         }
 
         .search-btn {
-            margin: 0 auto;
+            margin: 10px auto;
             display: block;
         }
 
@@ -57,6 +57,10 @@
             display: flex;
 
 
+        }
+
+        .input-group {
+            margin: 40px 0;
         }
 
         .ivu-radio-group {
@@ -137,7 +141,7 @@
 
         }
 
-        img {
+        .block img {
             width: 14px;
             height: 14px;
         }
@@ -173,64 +177,117 @@
                 transform: rotate(360deg);
             }
         }
+
+        .nav-page {
+            text-align: center;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .jump-page {
+            display: inline-block;
+            position: absolute;
+            right: 0;
+        }
+
+        .jump-page-input {
+            width: 60px;
+            margin: 5px;
+        }
+
+        /* 新增修改 */
+        .radio-box {
+            width: 100%;
+            display: flex;
+        }
+
+        .radio-title {
+            display: inline-block;
+            vertical-align: middle;
+            text-align: left;
+            vertical-align: top;
+            width: 100px;
+
+        }
+
+        .item-box {
+            display: inline-block;
+            vertical-align: top;
+            flex: 1 1 0;
+        }
+
+        .radio-item {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 4px 10px;
+            border: 1px solid #cdcdcd;
+            padding: 2px 10px;
+        }
+
+        .radio-item input {
+            margin: 0 4px 0 0;
+        }
     </style>
 </head>
 
 <body>
     <div class="goodslist">
         <div class="header">
-            <img src="./cloud.jpg" alt class="header-bg" />
+            <img src="./images/cloud.jpg" alt class="header-bg" />
             <div class="header-text">Cloud Library</div>
         </div>
         <div class="select-box">
-            <Input v-model="value1" size="large" placeholder="large size" type="text" class="select-item"
-                @on-change="onChangeValue(1,$event)">
-            <span slot="prepend" class="slot-span">Name:</span>
-            </Input>
-            <Input v-model="value2" placeholder="default size" type="text" class="select-item"
-                @on-change="onChangeValue(1,$event)">
-            <span slot="prepend" class="slot-span">Model:</span>
-            </Input>
-            <Button type="primary" class="search-btn" @click="onDoSearch">Search</Button>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">Name:</span>
+                <input type="text" class="form-control" placeholder="Name" aria-describedby="basic-addon1" name="name">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">Model:</span>
+                <input type="text" class="form-control" placeholder="Model" aria-describedby="basic-addon1"
+                    name="model">
+            </div>
+            <!-- 新增 -->
+            <div class="radio-box radio-box1">
+                <!-- <div class="radio-title">Country</div>
+                <div class="item-box">
+                    <div class="radio-item"><input type="radio" name="country" id="red" value="red">红色</div>
+                    <div class="radio-item"><input type="radio" name="country" id="blue" value="blue">蓝色</div>
+                    <div class="radio-item"><input type="radio" name="country" id="green" value="green">绿色</div>
+                </div> -->
+            </div>
+            <div class="radio-box radio-box2">
+                <!-- <div class="radio-title">Manufacturer</div>
+                <div class="item-box">
+                    <div class="radio-item"><input type="radio" name="colors" id="red" value="red">红色</div>
+                    <div class="radio-item"><input type="radio" name="colors" id="blue" value="blue">蓝色</div>
+                    <div class="radio-item"><input type="radio" name="colors" id="green" value="green">绿色</div>
+                </div> -->
+            </div>
+            <div class="radio-box radio-box3">
+                <!-- <div class="radio-title">Type</div>
+                <div class="item-box">
+                    <div class="radio-item"><input type="radio" name="colors" id="red" value="red">红色</div>
+                    <div class="radio-item"><input type="radio" name="colors" id="blue" value="blue">蓝色</div>
+                    <div class="radio-item"><input type="radio" name="colors" id="green" value="green">绿色</div>
+                </div> -->
+            </div>
+            <button type="button" class="btn btn-primary search-btn">Search</button>
         </div>
         <div class="goods-box">
-            <div class="goods-item" v-for="(item,index) in goodsList" :key="index">
-                <div class="item-cover">
-                    <img :src="item.pic_url" alt />
-                </div>
-                <div class="item-name">Name: {{item.name}}</div>
-                <div class="item-name">Model: {{item.model}}</div>
-                <div class="download-box" @click="onSendMessage(item.org_id,item.tip_url)">
-                    <span v-show="item.status==0">Download</span>
-                    <span v-show="item.status==1">applicate</span>
-                </div>
-            </div>
-            <div class="pagenation" v-if="total>8">
-                <Page :total="total" show-elevator :current="current" @on-change="onPageChange" :page-size="per_size" />
-            </div>
+
+
         </div>
-        <Spin fix v-show="showLoading">
-            <Icon type="ios-loading" size="32" class="demo-spin-icon-load"></Icon>
-            <div class="loading">Loading</div>
-        </Spin>
-        <nav aria-label="Page navigation">
+
+        <nav aria-label="Page navigation" class="nav-page">
             <ul class="pagination">
-                <li>
-                    <a href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
+
             </ul>
+            <div class="jump-page">跳到<input type="text" class="jump-page-input">页<span style="margin-left:10px;"
+                    class="total-page-tip"></span>
+            </div>
         </nav>
     </div>
     <script src="./js/jquery3.3.1.js"></script>
@@ -238,140 +295,343 @@
     <script src="./js/bootstrap.min.js"></script>
     <script src="./js/axios.js"></script>
     <script>
-        console.log(axios);
         let defaultValues = ["US", "All", "All"],
+            // goodsList = [{
+            //     id: 40025,
+            //     model: "Florence_Knoll_Oval_table_1",
+            //     name: "Florence Knoll Oval table_1",
+            //     org_id: 92933,
+            //     pic_url: "http://yfbim.oss-cn-shenzhen.aliyuncs.com/interimodel/interimodel-model_down/files/92933.jpg",
+            //     status: 0,
+            //     tip_url: "http://yfbim.oss-cn-shenzhen.aliyuncs.com/interimodel/interimodel-model_down/files/92933.tip",
+            // }],
             goodsList = [],
             value1 = "",
             value2 = "",
-            current = 1,
+            page = 1,
             flag = false,
             total = 0,
             per_size = 8,
             showLoading = true,
-            idArr = [];
+            idArr = '',
+            maxPage = 100,
+            baseDomain = 'http://interimodel-new.yfcad.com',
+            countryId = '',
+            manufacturerId = '',
+            typeId = '';
+        // getData(value1, value2, page);
+        getCountryData();
+        // 获取数据
+        function getData(name, model, page) {
+            let html = '';
+            let liHtml = '';
+            if (flag) return;
+            flag = true;
+            showLoading = true;
+            page = parseInt(page);
+            let params = {
+                name: name,
+                model: model,
+                country_id: countryId,
+                manuf_id: manufacturerId,
+                type_id: typeId,
+                page: page,
+                pagesize: per_size
+            };
+            console.log(params);
+            axios
+                .post(baseDomain + "/index", params)
+                .then(response => {
 
-    </script>
-    <script>
-        import { Input, RadioGroup, Radio, Page, Spin, Icon, Button } from "iview";
-        Vue.component("Input", Input);
-        Vue.component("RadioGroup", RadioGroup);
-        Vue.component("Radio", Radio);
-        Vue.component("Page", Page);
-        Vue.component("Spin", Spin);
-        Vue.component("Icon", Icon);
-        Vue.component("Button", Button);
-
-        export default {
-            data() {
-                return {
-                    defaultValues: ["US", "All", "All"],
-                    goodsList: [],
-                    value1: "",
-                    value2: "",
-                    current: 1,
-                    flag: false,
-                    total: 0,
-                    per_size: 8,
-                    showLoading: true,
-                    idArr: []
-                };
-            },
-            mounted: function () {
-                let _this = this;
-                console.log(process.env.API_HOST);
-                _this.getData(_this.value1, _this.value2, _this.current);
-            },
-            methods: {
-                onChangeValue: function (index, value) {
-                    console.log(index, value);
-                },
-                onDoSearch() {
-                    let _this = this;
-                    _this.getData(_this.value1, _this.value2, 1);
-                },
-                onPageChange: function (page) {
-                    let _this = this;
-                    _this.current = page;
-                    _this.getData(_this.value1, _this.value2, page);
-                },
-                getData(name, model, page) {
-                    let _this = this;
-                    if (_this.flag) return;
-                    _this.flag = true;
-                    _this.showLoading = true;
-                    this.$http
-                        .post(process.env.API_HOST + "index", {
-                            name: name,
-                            model: model,
-                            page: page,
-                            pagesize: _this.per_size
-                        })
-                        .then(response => {
-                            console.log(response.data);
-                            if (response.data.status == 1) {
-                                _this.goodsList = response.data.data;
-                                _this.total = response.data.pages.total;
-                                _this.current = page;
-                                // _this.updateStatus([]);
-                                _this.postStatus(_this.goodsList);
-                                window.updateStatus = function (statusStr, _this) {
-                                    // statusStr =
-                                    //   "4545415_0,4545415_1,4545415_1,4545415_1,4545415_1,4545415_1,4545415_0,4545415_0";
-                                    let newArr = statusStr.split(",");
-                                    alert(statusStr + "dgg" + newArr + _this + "goodsLIst:" + _this.goodsList);
-
-                                    _this.goodsList.forEach((item, index) => {
-                                        let id = newArr[index].slice(0, newArr[index].length - 2);
-                                        let status = newArr[index].slice(-1);
-                                        // if (item.tip_id == id) {
-                                        item.status = status;
-                                        // }
-                                    });
-                                    console.log(_this.goodsList);
-                                };
+                    if (response.data.status == 1) {
+                        goodsList = response.data.data;
+                        maxPage = response.data.pages.total_page;
+                        $('.total-page-tip').html('共' + maxPage + '页')
+                        for (let i = 0; i < goodsList.length; i++) {
+                            html += `<div class="goods-item">
+                                    <div class="item-cover">
+                                        <img src="`+ goodsList[i].pic_url + `" alt />
+                                    </div>
+                                    <div class="item-name">Name: `+ goodsList[i].name + `</div>
+                                    <div class="item-name">Model: `+ goodsList[i].model + `</div>
+                                    <div class="download-box">
+                                        <span class="download-btn" onclick="onSendMessage(`+ i + `)">Download</span>
+                                    </div>
+                                </div>`
+                        }
+                        liHtml += `<li class="previous">
+                                                <a href="#" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>`;
+                        for (let i = 0; i < 5; i++) {
+                            let className = '';
+                            if ((page + i) > maxPage) {
+                                className = 'disabled';
                             }
-                            _this.flag = false;
-                            _this.showLoading = false;
-                        });
-                },
+                            if (i == 0) {
+                                liHtml += `<li class="page-item active ` + className + `"><a href="#">` + page + `</a></li>`
+                            } else {
+                                liHtml += `<li class="page-item ` + className + `"><a href="#">` + (parseInt(page) + i) + `</a></li>`;
+                            }
 
-                onSendMessage: function (org_id, tip_url) {
-                    let _this = this;
-                    // alert("window:" + window + "func:" + window.updateStatus);
-                    let data = JSON.stringify({
-                        xml: org_id + "_1",
-                        zip: tip_url,
-                        // func: window.updateStatus
-                    });
-                    window.cefQuery({
-                        request: "AbroadDownloadModel|" + data,
-                        onSuccess: function (response) { },
-                        onFailure: function (error_code, error_message) { }
-                    });
-                },
-                postStatus(arr) {
-                    let _this = this;
-                    _this.idArr = [];
-                    let data =
-                        // http://interimodel.yfcad.com/model_down/files/600373.tip"
-                        arr.forEach((item, index) => {
-                            let reg = /.*files\/([0-9]+)\.tip/g;
-                            reg.test(item.tip_url);
-                            item.status = item.status || 0;
-                            item.org_id = item.org_id || RegExp.$1;
-                            _this.idArr.push(RegExp.$1);
-                        });
-                    console.log(_this.idArr);
-                    window.cefQuery({
-                        request: "checkCloudModelIsDownload|" + _this.idArr,
-                        onSuccess: function (response) { },
-                        onFailure: function (error_code, error_message) { }
-                    });
+                        }
+                        liHtml += `<li class="next">
+                                                <a href="#" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>`;
+                        // console.log(liHtml);
+                        $('.goods-box').html(html);
+                        $('.pagination').html(liHtml);
+                        total = response.data.pages.total;
+                        postStatus(goodsList);
+                    }
+                    flag = false;
+                    showLoading = false;
+                });
+        }
+        // 获取国家数据
+        function getCountryData() {
+            let countryHtml = '';
+            axios
+                .post(baseDomain + "/get_country", {
+                })
+                .then(response => {
+                    if (response.data.status == 1) {
+                        countryHtml += `<div class="radio-title">Country</div>
+                <div class="item-box">`;
+                        let data = response.data.data;
+                        for (let i = 0; i < data.length; i++) {
+                            countryHtml += `<div class="radio-item"><input type="radio" name="country" id="id` + data[i].id + `" value="` + data[i].name + `"><span>` + data[i].name + `</span></div>`
+                        }
+                        countryHtml += `</div>`;
+                        $('.radio-box.radio-box1').html(countryHtml);
+                        $(".radio-box1 .radio-item:first input").attr("checked", true);
+                        countryId = data[0].id;
+                        // getManufacturerData(countryId);
+
+                        $('.radio-box.radio-box2').html(` <div class="radio-title">Manufacturer</div>
+                <div class="item-box">
+                        <div class="radio-item"><input type="radio" name="manufacturer" id="id0" value="all"><span>all</span></div>
+                </div>`);
+                        $('.radio-box.radio-box3').html(` <div class="radio-title">Type</div>
+                <div class="item-box">
+                        <div class="radio-item"><input type="radio" name="type" id="id0" value="all"><span>all</span></div>
+                </div>`);
+                        manufacturerId = '0';
+                        typeId = '0';
+                        $(".radio-box2 .radio-item:first input").attr("checked", true);
+                        $(".radio-box3 .radio-item:first input").attr("checked", true);
+                        getData(value1, value2, 0);
+                    }
+                });
+        }
+        // 获取厂家数据
+        function getManufacturerData(id) {
+            let manufacturerHtml = '';
+            axios
+                .post(baseDomain + "/get_manuf", {
+                    id: id
+                })
+                .then(response => {
+                    if (response.data.status == 1) {
+                        manufacturerHtml += `<div class="radio-title">Manufacturer</div>
+                <div class="item-box">`;
+                        let data = response.data.data;
+                        for (let i = 0; i < data.length; i++) {
+                            manufacturerHtml += `<div class="radio-item"><input type="radio" name="manufacturer" id="id` + data[i].id + `" value="` + data[i].name + `"><span>` + data[i].name + `</span></div>`
+                        }
+                        manufacturerHtml += `</div>`;
+                        $('.radio-box.radio-box2').html(manufacturerHtml);
+                        $(".radio-box2 .radio-item:first input").attr("checked", true);
+                        manufacturerId = data[0].id;
+                        getTypeData(manufacturerId);
+
+                    }
+                });
+        }
+
+
+        //获取产品分类
+        function getTypeData(id) {
+            let typeHtml = '';
+            axios
+                .post(baseDomain + "/get_type", {
+                    id: id
+                })
+                .then(response => {
+                    if (response.data.status == 1) {
+                        typeHtml += `<div class="radio-title">Type</div>
+                <div class="item-box">`;
+                        let data = response.data.data;
+                        for (let i = 0; i < data.length; i++) {
+                            typeHtml += `<div class="radio-item"><input type="radio" name="type" id="id` + data[i].id + `" value="` + data[i].name + `"><span>` + data[i].name + `</span></div>`
+                        }
+                        typeHtml += `</div>`;
+                        $('.radio-box.radio-box3').html(typeHtml);
+                        $(".radio-box3 .radio-item:first input").attr("checked", true);
+                        typeId = data[0].id;
+                        getData(value1, value2, 1);
+                    }
+                });
+        }
+        // radio的切换事件
+        $(document).on('change', 'input[type=radio][name=country]', function () {
+            let id = $(".radio-box1 .radio-item input:checked").attr('id').substr(2);
+            countryId = id;
+            console.log('切换国家：', id);
+            getManufacturerData(countryId);
+        })
+        $(document).on('change', 'input[type=radio][name=manufacturer]', function () {
+            let id = $(".radio-box2 .radio-item input:checked").attr('id').substr(2);
+            manufacturerId = id;
+            console.log('切换厂家：', id);
+            getTypeData(manufacturerId);
+        })
+        $(document).on('change', 'input[type=radio][name=type]', function () {
+            let id = $(".radio-box3 .radio-item input:checked").attr('id').substr(2);
+            typeId = id;
+            console.log('切换产品类型：', id);
+            getData(value1, value2, 1);
+        })
+        // $(document).ready(function () {
+        //     $('input[type=radio][name=country]').change(function () {
+        //         let id = $(".radio-box1 .radio-item input:checked").attr('id').substr(2);
+        //         countryId = id;
+        //         console.log('切换国家：', id);
+        //         getManufacturerData(countryId);
+        //     });
+        //     $('input[type=radio][name=manufacturer]').change(function () {
+        //         let id = $(".radio-box2 .radio-item input:checked").attr('id').substr(2);
+        //         manufacturerId = id;
+        //         console.log('切换厂家：', id);
+        //         getTypeData(manufacturerId);
+        //     });
+        //     $('input[type=radio][name=type]').change(function () {
+        //         let id = $(".radio-box3 .radio-item input:checked").attr('id').substr(2);
+        //         typeId = id;
+        //         console.log('切换产品类型：', id);
+        //         getData(value1, value2, 1);
+        //     });
+        // });
+        // 点击搜索
+        $(document).on('click', '.search-btn', function () {
+            page = 1;
+            value1 = $.trim($("input[name='name']").val());
+            value2 = $.trim($("input[name='model']").val());
+            // console.log(value1, value2, page);
+            getData(value1, value2, page);
+        });
+        // 切换页码
+        $(document).on('click', '.previous', function () {
+            if (page == 1) return;
+            page = page - 1;
+            value1 = $.trim($("input[name='name']").val());
+            value2 = $.trim($("input[name='model']").val());
+            // console.log(value1, value2, page);
+            getData(value1, value2, page);
+        });
+        $(document).on('click', '.next', function () {
+            if (page >= maxPage) return;
+            page = parseInt(page) + 1;
+            value1 = $.trim($("input[name='name']").val());
+            value2 = $.trim($("input[name='model']").val());
+            // console.log(value1, value2, page);
+            getData(value1, value2, page);
+        });
+        $(document).on('click', '.page-item', function () {
+            page = $.trim($(this).find('a').html());
+            value1 = $.trim($("input[name='name']").val());
+            value2 = $.trim($("input[name='model']").val());
+            // console.log(value1, value2, page);
+            getData(value1, value2, page);
+        });
+        // 点击下载时数据传递
+
+        function onSendMessage(i) {
+            org_id = goodsList[i].org_id;
+            tip_url = goodsList[i].tip_url;
+            let data = JSON.stringify({
+                xml: "1_" + org_id,
+                zip: tip_url,
+            });
+            window.cefQuery({
+                request: "AbroadDownloadModel|" + data,
+                onSuccess: function (response) { },
+                onFailure: function (error_code, error_message) { }
+            });
+        }
+        function removeModel(tip_url) {
+            axios
+                .post(baseDomain + "/del", {
+                    tip: tip_url
+                }).then((res) => {
+                    if (res.data.status == 1) {
+                        getData(value1, value2, page);
+                    }
+                })
+        }
+        // 点击应用时数据传递
+        function onApplicateMessage(i) {
+            org_id = goodsList[i].org_id;
+            let data = JSON.stringify({
+                type: "1",
+                id: "" + org_id,
+            });
+            window.cefQuery({
+                request: "ApplyModel|" + data,
+                onSuccess: function (response) { },
+                onFailure: function (error_code, error_message) { }
+            });
+        }
+        // 传递id数组
+        function postStatus(arr) {
+
+            idArr = '';
+            let data = arr.forEach((item, index) => {
+                let reg = /.*files\/([0-9]+)\.tip/g;
+                reg.test(item.tip_url);
+                item.status = item.status || 0;
+                item.org_id = item.org_id || RegExp.$1;
+                idArr += item.org_id + ",";
+            });
+            idArr += '1';
+            // console.log(idArr);
+            window.cefQuery({
+                request: "checkCloudModelIsDownload|" + idArr,
+                onSuccess: function (response) { },
+                onFailure: function (error_code, error_message) { }
+            });
+        }
+        // 更新状态
+        function updateStatus(statusStr) {
+            // statusStr =
+            //   "4545415_0,4545415_1,4545415_1,4545415_1,4545415_1,4545415_1,4545415_0,4545415_0";
+            let newArr = statusStr.split(",");
+            goodsList.forEach((item, index) => {
+                let id = newArr[index].slice(0, newArr[index].length - 2);
+                let status = newArr[index].slice(-1);
+                // if (item.tip_id == id) {
+                item.status = status;
+                if (status == 1) {
+                    $('.goods-item').eq(index).find('.download-box').html(`<span class="applicate-btn" onclick="onApplicateMessage(` + index + `)">applicate</span>`);
                 }
-            }
+                // }
+            });
+            // console.log(goodsList);
         };
 
+
+        $(".jump-page-input").keyup(function (e) {
+            if (e.keyCode == 13) {
+                page = $(this).val();
+                if (page > maxPage) return;
+                getData(value1, value2, page);
+            }
+        });
     </script>
+
 </body>
 
 </html>
