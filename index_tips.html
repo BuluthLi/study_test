@@ -303,10 +303,67 @@
             [`${prefixCls}-no-icon`]: !showIcon,
             [`${prefixCls}-banner`]: !!banner,
         }, className);
-
-
         console.log("=================================ES6基础知识合集E=============================================");
+        console.log("=================================手机号正则和移动端环境判断S=============================================");
+        let reg = /^1[3456789]\d{9}$/;
+        let isMobileEnv = 'ontouchstart' in document;
+        console.log(isMobileEnv);
+        function isDesktop() { //判断是否为pc端
+            return (window.screen.width > 1023) ? true : false;
+        }
+        console.log("=================================手机号正则和移动端环境判断E=============================================");
+        // 完美的获取scrollTop 赋值短语 ：
+        var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+        // 常用功能函数
 
+        /*
+          * formatMoney(s,type)
+          * 功能：金额按千位逗号分隔
+          * 参数：s，需要格式化的金额数值.
+          * 参数：type,判断格式化后的金额是否需要小数位.
+          * 返回：返回格式化后的数值字符串.
+        */
+        function formatMoney(s, type) {
+            if (/[^0-9\.]/.test(s))
+                return "0.00";
+            if (s == null || s == "null" || s == "")
+                return "0.00";
+            s = s.toString().replace(/^(\d*)$/, "$1.");
+            s = (s + "00").replace(/(\d*\.\d\d)\d*/, "$1");
+            s = s.replace(".", ",");
+            var re = /(\d)(\d{3},)/;
+            while (re.test(s))
+                s = s.replace(re, "$1,$2");
+            s = s.replace(/,(\d\d)$/, ".$1");
+            if (type == 0) {
+                var a = s.split(".");
+                if (a[1] == "00") {
+                    s = a[0];
+                }
+            }
+            return s;
+        }
+
+        function isWeiXin() { //判断是否是微信浏览器
+            var ua = window.navigator.userAgent.toLowerCase();
+            if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
+        function getElementToPageTop(el) {//获取元素距离顶部距离
+            if (el == null) {
+                return
+            }
+            let _this = this;
+            if (el.parentElement) {
+                return _this.getElementToPageTop(el.parentElement) + el.offsetTop
+            }
+            return el.offsetTop
+        }
     </script>
 </body>
 

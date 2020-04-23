@@ -1,3 +1,4 @@
+<!-- html做了个float测试，主要的学习总结是js内容 -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,9 +7,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>OOP</title>
+    <style>
+        .clearfix:after {
+            content: " ";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+
+        .clearfix {
+            *zoom: 1;
+        }
+
+        .ceshi {
+            float: right;
+        }
+
+        /* .hai {
+            clear: both;
+        } */
+    </style>
 </head>
 
 <body>
+    <div class="wrapper clearfix">
+        <!-- 父元素包住浮动元素，给一个clearfix类名到父元素 -->
+        <div class="wrapper clearfix">
+            <div class="ceshi">wooshi</div>
+        </div>
+        <div class="hai">66666</div>
+    </div>
     <script>
         console.log("===================================对象===============================================");
         var person1 = new Object();
@@ -44,7 +73,7 @@
         let dongdong2 = new Person(25, 'dongdong');
         console.log(bob2, dongdong2.getName());
         console.log(bob2 instanceof Person);
-        console.log("=================================工厂模式问题二：多个实例重复生命getName方法，造成空间浪费：将共用方法挂载到该构造函数的原型上=============================================");
+        console.log("=================================工厂模式问题二：多个实例重复实现getName方法，造成空间浪费：将共用方法挂载到该构造函数的原型上=============================================");
         function CeshiPerson(name, age) {
             this.name = name;
             this.age = age;

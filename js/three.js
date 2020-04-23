@@ -10619,7 +10619,7 @@
                 var attributeOffset = attribute2.itemSize * offset;
                 var length = Math.min(attributeArray2.length, attributeArray1.length - attributeOffset);
 
-                for (var i = 0, j = attributeOffset; i < length; i++ , j++) {
+                for (var i = 0, j = attributeOffset; i < length; i++, j++) {
 
                     attributeArray1[j] = attributeArray2[i];
 
@@ -30030,7 +30030,7 @@
 
             var contourMovements = [];
 
-            for (var i = 0, il = contour.length, j = il - 1, k = i + 1; i < il; i++ , j++ , k++) {
+            for (var i = 0, il = contour.length, j = il - 1, k = i + 1; i < il; i++, j++, k++) {
 
                 if (j === il) j = 0;
                 if (k === il) k = 0;
@@ -30051,7 +30051,7 @@
 
                 oneHoleMovements = [];
 
-                for (i = 0, il = ahole.length, j = il - 1, k = i + 1; i < il; i++ , j++ , k++) {
+                for (i = 0, il = ahole.length, j = il - 1, k = i + 1; i < il; i++, j++, k++) {
 
                     if (j === il) j = 0;
                     if (k === il) k = 0;
@@ -31034,7 +31034,7 @@
 
             base = segments * points.length * 3;
 
-            for (i = 0, j = 0; i < points.length; i++ , j += 3) {
+            for (i = 0, j = 0; i < points.length; i++, j += 3) {
 
                 // select the normal of the vertex in the first line
 
@@ -31813,7 +31813,7 @@
         normals.push(0, 0, 1);
         uvs.push(0.5, 0.5);
 
-        for (s = 0, i = 3; s <= segments; s++ , i += 3) {
+        for (s = 0, i = 3; s <= segments; s++, i += 3) {
 
             var segment = thetaStart + s / segments * thetaLength;
 
@@ -45406,7 +45406,7 @@
             0, 0, 0, 0, - 1, 1
         ];
 
-        for (var i = 0, j = 1, l = 32; i < l; i++ , j++) {
+        for (var i = 0, j = 1, l = 32; i < l; i++, j++) {
 
             var p1 = (i / l) * Math.PI * 2;
             var p2 = (j / l) * Math.PI * 2;
@@ -46001,7 +46001,7 @@
 
         var vertices = [], colors = [];
 
-        for (var i = 0, j = 0, k = - halfSize; i <= divisions; i++ , k += step) {
+        for (var i = 0, j = 0, k = - halfSize; i <= divisions; i++, k += step) {
 
             vertices.push(- halfSize, 0, k, halfSize, 0, k);
             vertices.push(k, 0, - halfSize, k, 0, halfSize);
@@ -49278,5 +49278,5 @@
     exports.sRGBEncoding = sRGBEncoding;
 
     Object.defineProperty(exports, '__esModule', { value: true });
-
+   
 }));

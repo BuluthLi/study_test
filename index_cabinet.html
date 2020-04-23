@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cloud Library</title>
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .goodslist {
+            width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            width: 100%;
+            height: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-bg {
+            width: 100%;
+        }
+
+        .header-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            font-size: 32px;
+            color: #4a60bc;
+            font-weight: bold;
+            transform: translate(-50%, -50%);
+        }
+
+        .select-box {}
+
+        .search-input {
+            margin: 30px 0;
+        }
+
+        .select-item {
+            margin: 30px 0;
+        }
+
+        .search-btn {
+            margin: 10px auto;
+            display: block;
+        }
+
+        .options-item {
+            margin: 20px 0;
+            padding: 10px 20px;
+            border: 1px solid #515a6e;
+            border-radius: 4px;
+            display: flex;
+
+
+        }
+
+        .input-group {
+            margin: 40px 0;
+        }
+
+        .ivu-radio-group {
+            max-width: 600px;
+
+        }
+
+        label {
+            margin: 5px 10px;
+        }
+
+        .title {
+            width: 100px;
+            text-align: right;
+            display: inline-block;
+            vertical-align: middle;
+            font-weight: bold;
+            color: black;
+            margin-right: 40px;
+        }
+
+        .goods-box {
+            margin-top: 40px;
+            width: 100%;
+
+            padding: 0 1%;
+
+        }
+
+        .goods-item {
+            display: inline-block;
+            margin: 10px 1%;
+            width: 23%;
+            background: white;
+
+
+        }
+
+        .item-cover {
+            width: 100%;
+            max-height: 126px;
+            overflow: hidden;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        .item-name {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 2px 4px;
+            color: black;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .download-box {
+            width: 100%;
+            height: 30px;
+            background: linear-gradient(#efefef, #b6b6b6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .block {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border: 1px solid #515a6e;
+            margin-right: 6px;
+            line-height: 16px;
+            text-align: center;
+
+        }
+
+        .block img {
+            width: 14px;
+            height: 14px;
+        }
+
+        span {
+            color: black;
+        }
+
+        .pagenation {
+            margin: 30px;
+            text-align: center;
+        }
+
+        .demo-spin-icon-load {
+            animation: ani-demo-spin 1s linear infinite;
+        }
+
+        .loading {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        @keyframes ani-demo-spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            50% {
+                transform: rotate(180deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .nav-page {
+            text-align: center;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .jump-page {
+            display: inline-block;
+            position: absolute;
+            right: 0;
+        }
+
+        .jump-page-input {
+            width: 60px;
+            margin: 5px;
+        }
+
+        /* 新增修改 */
+        .radio-box {
+            width: 100%;
+            display: flex;
+        }
+
+        .radio-title {
+            display: inline-block;
+            vertical-align: middle;
+            text-align: left;
+            vertical-align: top;
+            width: 100px;
+
+        }
+
+        .item-box {
+            display: inline-block;
+            vertical-align: top;
+            flex: 1 1 0;
+        }
+
+        .radio-item {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 4px 10px;
+            border: 1px solid #cdcdcd;
+            padding: 2px 10px;
+        }
+
+        .radio-item input {
+            margin: 0 4px 0 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="goodslist">
+        <div class="header">
+            <img src="./images/cloud.jpg" alt class="header-bg" />
+            <div class="header-text">Cloud Library</div>
+        </div>
+        <div class="select-box">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">Name:</span>
+                <input type="text" class="form-control" placeholder="Name" aria-describedby="basic-addon1" name="name">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">Model:</span>
+                <input type="text" class="form-control" placeholder="Model" aria-describedby="basic-addon1"
+                    name="model">
+            </div>
+            <!-- 新增 -->
+            <div class="radio-box radio-box1">
+                <!-- <div class="radio-title">Country</div>
+                <div class="item-box">
+                    <div class="radio-item"><input type="radio" name="country" id="red" value="red">红色</div>
+                    <div class="radio-item"><input type="radio" name="country" id="blue" value="blue">蓝色</div>
+                    <div class="radio-item"><input type="radio" name="country" id="green" value="green">绿色</div>
+                </div> -->
+            </div>
+            <div class="radio-box radio-box2">
+                <!-- <div class="radio-title">Manufacturer</div>
+                <div class="item-box">
+                    <div class="radio-item"><input type="radio" name="colors" id="red" value="red">红色</div>
+                    <div class="radio-item"><input type="radio" name="colors" id="blue" value="blue">蓝色</div>
+                    <div class="radio-item"><input type="radio" name="colors" id="green" value="green">绿色</div>
+                </div> -->
+            </div>
+            <div class="radio-box radio-box3">
+                <!-- <div class="radio-title">Type</div>
+                <div class="item-box">
+                    <div class="radio-item"><input type="radio" name="colors" id="red" value="red">红色</div>
+                    <div class="radio-item"><input type="radio" name="colors" id="blue" value="blue">蓝色</div>
+                    <div class="radio-item"><input type="radio" name="colors" id="green" value="green">绿色</div>
+                </div> -->
+            </div>
+            <button type="button" class="btn btn-primary search-btn">Search</button>
+        </div>
+        <div class="goods-box">
+
+
+        </div>
+
+        <nav aria-label="Page navigation" class="nav-page">
+            <ul class="pagination">
+
+            </ul>
+            <div class="jump-page">跳到<input type="text" class="jump-page-input">页<span style="margin-left:10px;"
+                    class="total-page-tip"></span>
+            </div>
+        </nav>
+    </div>
+    <script src="./js/jquery3.3.1.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/axios.js"></script>
+    <script>
+        let defaultValues = ["US", "All", "All"],
+            language = 'en',
+            goodsList = [],
+            value1 = "",
+            value2 = "",
+            page = 1,
+            flag = false,
+            total = 0,
+            per_size = 8,
+            showLoading = true,
+            idArr = '',
+            maxPage = 100,
+            baseDomain = 'http://interimodel-new.yfcad.com',
+            countryId = 0,
+            manufacturerId = 0,
+            typeId = 0;
+        let url = location.href;
+        let params = getUrlParams(url);
+        language = (params && params.language) ? params.language : 'en';
+        let labelObj = changeLabelLang(language);
+        getFirstData(0);
+        // 获取列表数据
+        function getData(name, model, page) {
+            let html = '';
+            let liHtml = '';
+            if (flag) return;
+            flag = true;
+            showLoading = true;
+            page = parseInt(page);
+            let params = {
+                language: language,
+                name: name,
+                model: model,
+                first_id: countryId,
+                model_id: manufacturerId,
+                brand_id: typeId,
+                page: page,
+                pagesize: per_size
+            };
+            console.log(params);
+            axios
+                .post(baseDomain + "/get_chugui", params)
+                .then(response => {
+
+                    if (response.data.status == 1) {
+                        goodsList = response.data.data;
+                        maxPage = response.data.pages.total_page;
+                        $('.total-page-tip').html('共' + maxPage + '页')
+                        for (let i = 0; i < goodsList.length; i++) {
+                            html += `<div class="goods-item">
+                                    <div class="item-cover">
+                                        <img src="`+ goodsList[i].pic_url + `" alt />
+                                    </div>
+                                    <div class="item-name">Name: `+ goodsList[i].name + `</div>
+                                    <div class="item-name">Model: `+ goodsList[i].model + `</div>
+                                    <div class="download-box">
+                                        <span class="download-btn" onclick="onSendMessage(`+ i + `)">Download</span>
+                                    </div>
+                                </div>`
+                        }
+                        liHtml += `<li class="previous">
+                                                <a href="#" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>`;
+                        for (let i = 0; i < 5; i++) {
+                            let className = '';
+                            if ((page + i) > maxPage) {
+                                className = 'disabled';
+                            }
+                            if (i == 0) {
+                                liHtml += `<li class="page-item active ` + className + `"><a href="#">` + page + `</a></li>`
+                            } else {
+                                liHtml += `<li class="page-item ` + className + `"><a href="#">` + (parseInt(page) + i) + `</a></li>`;
+                            }
+
+                        }
+                        liHtml += `<li class="next">
+                                                <a href="#" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>`;
+                        $('.goods-box').html(html);
+                        $('.pagination').html(liHtml);
+                        total = response.data.pages.total;
+                        // postStatus(goodsList);
+                    }
+                    flag = false;
+                    showLoading = false;
+                });
+        }
+        // 获取一级数据
+        function getFirstData(id) {
+            let countryHtml = '';
+            axios
+                .post(baseDomain + "/get_chuigui_cat", {
+                    language: language,
+                    id: id
+                })
+                .then(response => {
+                    if (response.data.status == 1) {
+                        countryHtml += `<div class="radio-title">` + labelObj.product + `</div>
+                <div class="item-box">`;
+                        let data = response.data.data;
+                        for (let i = 0; i < data.length; i++) {
+                            countryHtml += `<div class="radio-item"><input type="radio" name="country" id="id` + data[i].id + `" value="` + data[i].name + `"><span>` + data[i].name + `</span></div>`
+                        }
+                        countryHtml += `</div>`;
+                        $('.radio-box.radio-box1').html(countryHtml);
+                        $(".radio-box1 .radio-item:first input").attr("checked", true);
+                        countryId = data[0].id;
+                        // getData(value1, value2, 1);
+                        getSecondData(countryId);
+
+                    }
+                });
+        }
+        // 获取二级数据
+        function getSecondData(id) {
+            console.log('获取二级数据');
+            let manufacturerHtml = '';
+            axios
+                .post(baseDomain + "/get_chuigui_cat", {
+                    language: language,
+                    id: id
+                })
+                .then(response => {
+                    if (response.data.status == 1) {
+                        let data = response.data.data;
+                        if (data.length > 0) {
+                            manufacturerHtml += `<div class="radio-title">` + labelObj.model + `</div>
+                <div class="item-box">`;
+                            for (let i = 0; i < data.length; i++) {
+                                manufacturerHtml += `<div class="radio-item"><input type="radio" name="manufacturer" id="id` + data[i].id + `" value="` + data[i].name + `"><span>` + data[i].name + `</span></div>`
+                            }
+                            manufacturerHtml += `</div>`;
+                            $('.radio-box.radio-box2').html(manufacturerHtml);
+                            $(".radio-box2 .radio-item:first input").attr("checked", true);
+                            manufacturerId = data[0].id;
+                            getData(value1, value2, 1);
+
+                        }
+
+                    }
+                });
+        }
+
+
+        //获取二级分类下的品牌（三级数据）
+        function getBrandData(id) {
+            console.log('获取分类下的品牌（三级数据）数据');
+            let typeHtml = '';
+            axios
+                .post(baseDomain + "/get_chuigui_brand", {
+                    language: language,
+                    id: id
+                })
+                .then(response => {
+                    if (response.data.status == 1) {
+                        let data = response.data.data;
+                        if (data.length > 0) {
+                            typeHtml += `<div class="radio-title">` + labelObj.brand + `</div>
+                <div class="item-box">`;
+                            for (let i = 0; i < data.length; i++) {
+                                typeHtml += `<div class="radio-item"><input type="radio" name="type" id="id` + data[i].id + `" value="` + data[i].name + `"><span>` + data[i].name + `</span></div>`
+                            }
+                            typeHtml += `</div>`;
+                            $('.radio-box.radio-box3').html(typeHtml);
+                            $(".radio-box3 .radio-item:first input").attr("checked", true);
+                            typeId = data[0].id;
+                        }
+                        getData(value1, value2, 1);
+                    }
+                });
+        }
+        // 获取页面参数
+        function getUrlParams(url) {
+            let index = url.indexOf('?');
+            if (index == -1) return;
+            let params = url.substr(index + 1);
+            let arr = params.split('&');
+            let obj = {};
+            for (let i = 0; i < arr.length; i++) {
+                let paramsArr = arr[i].split('=');
+                obj[paramsArr[0]] = paramsArr[1];
+            }
+            console.log(obj);
+            return obj;
+        }
+        //更改label的中英文
+        function changeLabelLang(language) {
+            let obj = {
+                product: 'product:',
+                model: 'model:',
+                brand: 'brand:'
+            };
+            switch (language) {
+                case 'en':
+                    obj = {
+                        product: 'product:',
+                        model: 'model:',
+                        brand: 'brand:'
+                    };
+                    break;
+                case 'kc':
+                    obj = {
+                        product: '產品:',
+                        model: '模型:',
+                        brand: '品牌:'
+                    };
+                    break;
+                default:
+                    obj = {
+                        product: 'product:',
+                        model: 'model:',
+                        brand: 'brand:'
+                    };
+            }
+            return obj;
+        }
+        // radio的切换事件
+        $(document).on('change', 'input[type=radio][name=country]', function () {
+            let id = $(".radio-box1 .radio-item input:checked").attr('id').substr(2);
+            countryId = id;
+            console.log('切换国家：', id);
+            $('.radio-box.radio-box3').html('');
+            typeId = 0;
+            getSecondData(countryId);
+        })
+        $(document).on('change', 'input[type=radio][name=manufacturer]', function () {
+            let id = $(".radio-box2 .radio-item input:checked").attr('id').substr(2);
+            manufacturerId = id;
+            console.log('切换厂家：', id);
+            getBrandData(manufacturerId);
+        })
+        $(document).on('change', 'input[type=radio][name=type]', function () {
+            let id = $(".radio-box3 .radio-item input:checked").attr('id').substr(2);
+            typeId = id;
+            console.log('切换产品类型：', id);
+            getData(value1, value2, 1);
+        })
+        // 点击搜索
+        $(document).on('click', '.search-btn', function () {
+            page = 1;
+            value1 = $.trim($("input[name='name']").val());
+            value2 = $.trim($("input[name='model']").val());
+            getData(value1, value2, page);
+        });
+        // 切换页码
+        $(document).on('click', '.previous', function () {
+            if (page == 1) return;
+            page = page - 1;
+            value1 = $.trim($("input[name='name']").val());
+            value2 = $.trim($("input[name='model']").val());
+            getData(value1, value2, page);
+        });
+        $(document).on('click', '.next', function () {
+            if (page >= maxPage) return;
+            page = parseInt(page) + 1;
+            value1 = $.trim($("input[name='name']").val());
+            value2 = $.trim($("input[name='model']").val());
+            getData(value1, value2, page);
+        });
+        $(document).on('click', '.page-item', function () {
+            if ($(this).hasClass("disabled")) return;
+            page = $.trim($(this).find('a').html());
+            value1 = $.trim($("input[name='name']").val());
+            value2 = $.trim($("input[name='model']").val());
+            getData(value1, value2, page);
+        });
+        // 点击下载时数据传递
+
+        function onSendMessage(i) {
+            let org_id = goodsList[i].org_id;
+            let tip_url = goodsList[i].tip_url;
+            let model_type = goodsList[i].model_type;
+            let data = JSON.stringify({
+                xml: model_type + org_id,
+                zip: tip_url,
+            });
+            console.log(data);
+            window.cefQuery({
+                request: "AbroadDownloadModel|" + data,
+                onSuccess: function (response) { },
+                onFailure: function (error_code, error_message) { }
+            });
+        }
+        function removeModel(tip_url) {
+            axios
+                .post(baseDomain + "/del", {
+                    tip: tip_url
+                }).then((res) => {
+                    if (res.data.status == 1) {
+                        getData(value1, value2, page);
+                    }
+                })
+        }
+        // 点击应用时数据传递
+        function onApplicateMessage(i) {
+            let org_id = goodsList[i].org_id;
+            let model_type = goodsList[i].model_type;
+            let data = JSON.stringify({
+                type: model_type,
+                id: "" + org_id,
+            });
+            window.cefQuery({
+                request: "ApplyModel|" + data,
+                onSuccess: function (response) { },
+                onFailure: function (error_code, error_message) { }
+            });
+        }
+        // 传递id数组
+        function postStatus(arr) {
+            if (arr.length == 0) reutrn;
+            idArr = '';
+            let data = arr.forEach((item, index) => {
+                let reg = /.*files\/([0-9]+)\.tip/g;
+                reg.test(item.tip_url);
+                item.status = item.status || 0;
+                item.org_id = item.org_id || RegExp.$1;
+                idArr += item.org_id + ",";
+            });
+            idArr += arr[0].model_type;
+            window.cefQuery({
+                request: "checkCloudModelIsDownload|" + idArr,
+                onSuccess: function (response) { },
+                onFailure: function (error_code, error_message) { }
+            });
+        }
+        // 更新状态
+        function updateStatus(statusStr) {
+            let newArr = statusStr.split(",");
+            goodsList.forEach((item, index) => {
+                let id = newArr[index].slice(0, newArr[index].length - 2);
+                let status = newArr[index].slice(-1);
+                item.status = status;
+                if (status == 1) {
+                    $('.goods-item').eq(index).find('.download-box').html(`<span class="applicate-btn" onclick="onApplicateMessage(` + index + `)">applicate</span>`);
+                }
+            });
+        };
+
+
+        $(".jump-page-input").keyup(function (e) {
+            if (e.keyCode == 13) {
+                page = $(this).val();
+                if (page > maxPage) return;
+                getData(value1, value2, page);
+            }
+        });
+    </script>
+
+</body>
+
+</html>
